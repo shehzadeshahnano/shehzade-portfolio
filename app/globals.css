@@ -1,26 +1,275 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;700&display=swap');
 @import "tailwindcss";
+@config "../tailwind.config.ts";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  /* DARK MODE (Default) */
+  :root {
+    --background: #0a0a0f;
+    --card-bg: #111118;
+    --card-hover: #1a1a25;
+    --border: #1e1e2e;
+    --text-primary: #ffffff;
+    --text-secondary: #94a3b8;
+    --text-muted: #475569;
+    --text-soft: #64748b;
+    /* Single brand color instead of gradient */
+    --brand-primary: #3b82f6;
+    --brand-secondary: #60a5fa;
+    --accent-glow: rgba(59, 130, 246, 0.15);
+    --success: #10b981;
+    --error: #ef4444;
+  }
+
+  /* LIGHT MODE */
+  html.light {
+    --background: #fafafa;
+    --card-bg: #ffffff;
+    --card-hover: #f4f4f5;
+    --border: #e4e4e7;
+    --text-primary: #18181b;
+    --text-secondary: #52525b;
+    --text-muted: #a1a1aa;
+    --text-soft: #71717a;
+    --brand-primary: #2563eb;
+    --brand-secondary: #3b82f6;
+    --accent-glow: rgba(37, 99, 235, 0.1);
+    --success: #059669;
+    --error: #dc2626;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+
+  body {
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    line-height: 1.6;
+    transition: background 0.3s ease, color 0.3s ease;
+    background: var(--background);
+  }
+
+  /* Focus visible fixes - remove outline on mouse, keep on keyboard */
+  *:focus {
+    outline: none;
+  }
+
+  *:focus-visible {
+    outline: 2px solid var(--brand-primary);
+    outline-offset: 2px;
+  }
+
+  /* Remove focus ring on click for buttons and links */
+  button:focus:not(:focus-visible),
+  a:focus:not(:focus-visible) {
+    outline: none;
+    box-shadow: none;
+  }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--background);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+  }
+
+  html.light ::-webkit-scrollbar-thumb {
+    background: #d4d4d8;
+  }
+
+  html.light ::-webkit-scrollbar-thumb:hover {
+    background: #a1a1aa;
+  }
+
+  ::selection {
+    background: var(--brand-primary);
+    color: white;
+  }
+
+  /* Cursor pointer enforcement */
+  button,
+  a,
+  [role='button'],
+  [role='link'],
+  input[type='submit'],
+  input[type='button'],
+  input[type='reset'],
+  label[for],
+  select {
+    cursor: pointer;
+  }
+
+  input,
+  textarea {
+    cursor: text;
+  }
+
+  /* Light theme specific fixes */
+  html.light body {
+    background: var(--background);
+  }
+
+  html.light .card-hover {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  html.light .card-hover:hover {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  html.light input,
+  html.light textarea,
+  html.light select {
+    background-color: #ffffff;
+    color: var(--text-primary);
+    border-color: #e4e4e7;
+  }
+
+  html.light input::placeholder,
+  html.light textarea::placeholder {
+    color: #a1a1aa;
+  }
+
+  html.light input:focus,
+  html.light textarea:focus,
+  html.light select:focus {
+    border-color: var(--brand-primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  }
+
+  html.dark input,
+  html.dark textarea,
+  html.dark select {
+    background-color: var(--card-bg);
+    color: var(--text-primary);
+    border-color: var(--border);
+  }
+
+  html.dark input:focus,
+  html.dark textarea:focus,
+  html.dark select:focus {
+    border-color: var(--brand-primary);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+  }
 }
 
 @theme inline {
   --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card-bg: var(--card-bg);
+  --color-card-hover: var(--card-hover);
+  --color-border: var(--border);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-text-soft: var(--text-soft);
+  --color-brand-blue: var(--brand-primary);
+  --color-brand-purple: var(--brand-secondary);
+  --color-success: var(--success);
+  --color-error: var(--error);
+  --font-sans: 'Inter', sans-serif;
+  --font-display: 'Space Grotesk', sans-serif;
+  --shadow-glow: 0 0 40px var(--accent-glow);
+  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.4);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer utilities {
+  /* Solid brand color instead of gradient */
+  .brand-text {
+    color: var(--brand-primary);
   }
-}
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  .brand-bg {
+    background-color: var(--brand-primary);
+  }
+
+  /* REMOVE gradient-text utility - replaced with solid color */
+  .gradient-text {
+    color: var(--brand-primary);
+  }
+
+  /* Alternative: if you want subtle gradient only as accent */
+  .accent-gradient {
+    background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .brand-gradient-bg {
+    background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+  }
+
+  .glow-effect {
+    box-shadow: 0 0 40px var(--accent-glow);
+  }
+
+  .card-hover {
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px var(--accent-glow);
+    border-color: var(--brand-primary);
+  }
+
+  .section-padding {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+
+  .container-width {
+    max-width: 80rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .container-width {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container-width {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }

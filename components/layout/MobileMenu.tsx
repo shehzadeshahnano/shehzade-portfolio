@@ -1,0 +1,106 @@
+'use client'
+
+import { motion, AnimatePresence } from 'framer-motion'
+import Link from 'next/link'
+import { X, Moon, Sun } from 'lucide-react'
+import { NAV_LINKS } from '@/lib/constants'
+import { useTheme } from '@/hooks/useTheme'
+
+interface MobileMenuProps {
+  isOpen: boolean
+  onClose: () => void
+  toggleTheme: () => void
+}
+
+export default function MobileMenu({
+  isOpen,
+  onClose,
+  toggleTheme,
+}: MobileMenuProps) {
+  const { theme, mounted } = useTheme()
+
+  const isDark =
+    theme === 'dark' ||
+    (theme === 'system' &&
+      mounted &&
+      typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-color-scheme: dark)').matches)
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+            className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm lg:hidden cursor-pointer"
+            aria-hidden="true"
+          />
+
+          <motion.div
+            initial={{ x: '100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '100%' }}
+            transition={{ type: 'spring', damping: 30, stiffness: 300 }}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Mobile navigation"
+            className="fixed top-0 right-0 z-50 h-full w-[min(320px,85vw)] bg-card-bg 
+              border-l border-border flex flex-col lg:hidden"
+          >
+            <div className="flex items-center justify-between p-6 border-b border-border">
+              <span className="text-xl font-black text-text-primary font-display">Menu</span>
+              <button
+                type="button"
+                onClick={onClose}
+                className="p-2 rounded-lg text-text-secondary hover:text-text-primary 
+                  hover:bg-black/5 dark:hover:bg-white/10 transition-colors cursor-pointer
+                  focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue rounded-lg"
+                aria-label="Close menu"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            <nav className="flex flex-col p-6 gap-2 flex-1" aria-label="Mobile">
+              {NAV_LINKS.map((link, index) => (
+                <motion.div
+                  key={link.href}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.05 }}
+                >
+                  <Link
+                    href={link.href}
+                    onClick={onClose}
+                    className="flex items-center px-4 py-3 rounded-xl font-medium text-body
+                      text-text-secondary hover:text-text-primary hover:bg-black/5 dark:hover:bg-white/10
+                      transition-all duration-200 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue"
+                  >
+                    {link.label}
+                  </Link>
+                </motion.div>
+              ))}
+            </nav>
+
+            <div className="p-6 border-t border-border flex items-center gap-2">
+              <button
+                type="button"
+                onClick={toggleTheme}
+                className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl 
+                  bg-border text-text-secondary hover:text-text-primary
+                  transition-all duration-200 cursor-pointer font-medium
+                  focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue"
+              >
+                {isDark ? <Sun size={18} /> : <Moon size={18} />}
+                {isDark ? 'Light Mode' : 'Dark Mode'}
+              </button>
+            </div>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
+  )
+}
