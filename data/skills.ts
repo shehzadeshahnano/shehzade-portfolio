@@ -86,12 +86,23 @@ export const skillsData: SkillCategory[] = [
     category: 'Currently Learning & Exploring',
     icon: 'Sparkles',
     skills: [
-      { name: 'Next.js', level: 'Beginner', years: '0.2', proficiency: 30 },
-      {
-        name: 'Generative AI',
-        level: 'Beginner',
-        years: '0.1',
-        proficiency: 20,
+      { 
+        name: 'Next.js', 
+        level: 'Beginner', 
+        years: '0.2', 
+        proficiency: 30 
+      },
+      { 
+        name: 'MongoDB', 
+        level: 'Beginner', 
+        years: '0.3', 
+        proficiency: 25 
+      },
+      { 
+        name: 'Express.js', 
+        level: 'Beginner', 
+        years: '0.3', 
+        proficiency: 25 
       },
     ],
   },

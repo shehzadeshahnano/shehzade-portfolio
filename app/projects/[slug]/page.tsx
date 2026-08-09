@@ -54,7 +54,7 @@ export default async function ProjectDetailPage({
 
   return (
     <>
-      <section className="section-padding pt-12 lg:pt-20 pb-6">
+      <section className="pt-12 lg:pt-20 pb-6">
         <div className="container-width">
           <Link
             href="/projects"
@@ -66,7 +66,7 @@ export default async function ProjectDetailPage({
         </div>
       </section>
 
-      <section className="section-padding pt-0 pb-12">
+      <section className="pt-0 pb-12">
         <div className="container-width">
           <div className="flex flex-col gap-6 max-w-3xl">
             <div className="flex flex-wrap items-center gap-3">

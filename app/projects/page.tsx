@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export default function ProjectsPage() {
   return (
     <>
-      <section className="section-padding pt-12 lg:pt-20">
+      <section className="pt-12 lg:pt-20">
         <div className="container-width">
           <div className="flex flex-col gap-6 max-w-3xl">
             <h1 className="text-hero font-black text-text-primary">
@@ -28,7 +28,7 @@ export default function ProjectsPage() {
         </div>
       </section>
 
-      <section className="section-padding pt-0">
+      <section className="mt-0 pt-0">
         <div className="container-width">
           <div className="grid grid-cols-1 gap-6 max-w-xl">
             {projectsData.map((project) => (

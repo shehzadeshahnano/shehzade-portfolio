@@ -13,13 +13,13 @@ export const SOCIAL_LINKS = [
   },
   {
     name: 'GitHub',
-    url: 'https://github.com/shehzade',
+    url: 'https://github.com/shehzadeshahnano',
     icon: 'Github',
     label: 'View GitHub Profile',
   },
   {
     name: 'Email',
-    url: 'mailto:shehzade@example.com',
+    url: 'mailto:shehzadeshahnano@gmail.com',
     icon: 'Mail',
     label: 'Send Email',
   },
@@ -28,17 +28,17 @@ export const SOCIAL_LINKS = [
 export const PORTFOLIO = {
   name: 'Shehzade Shahnano',
   title: 'Software Developer',
-  shortBio: 'React Developer & Problem Solver',
+  shortBio: 'Frontend Developer',
   bio: 'Passionate Software Developer with 1+ years of experience specializing in building client-based dashboard applications. Currently working at Guava Trees Softech Pvt Ltd, developing high-performance farm management solutions with React, Redux, and Material-UI. Graduated from Sagar Institute of Science & Technology (SISTec), affiliated with Rajiv Gandhi Proudyogiki Vishwavidyalaya (RGPV), Bhopal.',
-  email: 'shehzade@example.com',
-  phone: '+91-XXXXXXXXXX',
+  email: 'shehzadeshahnano@gmail.com',
+  phone: '+91-6264302898',
   location: 'Bhopal, Madhya Pradesh, India',
   resumeUrl: '/resume.pdf',
   profileImage: '/images/profile/profile.png',
   socialLinks: {
     linkedin: 'https://www.linkedin.com/in/shehzade-shahnano-b8a5b1222/',
     twitter: 'https://x.com/shezyy_07',
-    github: 'https://github.com/shehzade',
+    github: 'https://github.com/shehzadeshahnano',
   },
   learningStatement: 'Currently exploring advanced React patterns, TypeScript, and cloud technologies while building scalable dashboard applications.',
 } as const

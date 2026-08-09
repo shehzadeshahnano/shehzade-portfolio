@@ -31,10 +31,10 @@ export default function Home() {
     <>
       <section className="section-padding pt-12 lg:pt-20">
         <div className="container-width">
-          
+
           {/* HERO GRID: Text + Image side by side */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
-            
+
             {/* Left: Intro */}
             <div className="flex flex-col gap-6 order-2 lg:order-1">
               <div className="flex flex-col gap-3">
@@ -62,7 +62,7 @@ export default function Home() {
                 </div>
                 <div className="flex items-center gap-2">
                   <Briefcase size={16} className="text-green-500" />
-                  <span>Available for work</span>
+                  <span>Currently Working</span>
                 </div>
               </div>
 
@@ -72,10 +72,14 @@ export default function Home() {
                   View My Work
                   <ArrowRight size={18} />
                 </Button>
-                <Button href={PORTFOLIO.resumeUrl} variant="outline" size="lg">
+                <a
+                  href="/resume.pdf"
+                  download="Shehzade_Shahnano_Resume.pdf"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl border-2 border-brand-blue text-brand-blue font-semibold hover:bg-brand-blue hover:text-white transition-all duration-300"
+                >
                   Download Resume
                   <Download size={18} />
-                </Button>
+                </a>
               </div>
             </div>
 
@@ -87,10 +91,10 @@ export default function Home() {
 
           {/* INFO GRID: 2 columns on desktop - Left: Current Work, Right: Tech Stack */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            
+
             {/* Left Column: Current Status & Highlights */}
             <div className="lg:col-span-1 flex flex-col gap-6">
-              
+
               {/* Currently Working Card */}
               <div className="p-5 rounded-2xl bg-card-bg border border-border hover:border-brand-blue/30 transition-colors">
                 <div className="flex items-center gap-3 mb-3">
