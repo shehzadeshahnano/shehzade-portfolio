@@ -99,29 +99,29 @@ export default function Home() {
 
             {/* Right: Image + Social Links - Properly Contained */}
             <div className="order-1 lg:order-2 flex flex-col items-center justify-center">
-  {/* Image Container - Fixed height, overflow hidden prevents any spillover */}
-  <div className="w-full h-[280px] sm:h-[320px] md:h-[380px] lg:h-[420px] overflow-hidden rounded-2xl flex items-center justify-center">
-    <Scene3D />
-  </div>
+              {/* Image Container - Fixed height, overflow hidden prevents any spillover */}
+              <div className="w-full h-[280px] sm:h-[320px] md:h-[380px] lg:h-[420px] overflow-hidden rounded-2xl flex items-center justify-center">
+                <Scene3D />
+              </div>
 
-  {/* Social Links - Guaranteed separate block below */}
-  <div className="flex justify-center gap-3 mt-6">
-    {socialLinks.map((social) => (
-      <a
-        key={social.name}
-        href={social.url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="flex items-center justify-center w-11 h-11 rounded-xl bg-card-bg border border-border text-text-secondary 
+              {/* Social Links */}
+              <div className="flex justify-center gap-3 mt-6">
+                {socialLinks.map((social) => (
+                  <a
+                    key={social.name}
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center w-11 h-11 rounded-xl bg-card-bg border border-border text-text-secondary 
           hover:text-brand-blue hover:border-brand-blue/40 transition-all duration-200 cursor-pointer 
           hover:scale-110 shadow-md"
-        aria-label={social.name}
-      >
-        <social.icon size={18} />
-      </a>
-    ))}
-  </div>
-</div>
+                    aria-label={social.name}
+                  >
+                    <social.icon size={18} />
+                  </a>
+                ))}
+              </div>
+            </div>
           </div>
 
           {/* INFO GRID */}

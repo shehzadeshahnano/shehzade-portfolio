@@ -5,7 +5,7 @@ import Image from 'next/image'
 export default function Hero3D() {
   return (
     <div className="w-full h-full flex items-center justify-center">
-      <div className="relative w-full max-w-md aspect-[3/4] lg:aspect-square">
+      <div className="relative h-full max-w-full aspect-[3/4] lg:aspect-square">
         <Image
           src="/images/profile/profile.png"
           alt="Shehzade Shahnano - Software Developer"
