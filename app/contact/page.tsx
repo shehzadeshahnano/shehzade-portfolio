@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Mail, Phone, MapPin } from 'lucide-react'
 import { PORTFOLIO, SOCIAL_LINKS, CURRENT_COMPANY } from '@/lib/constants'
-import Button from '@/components/shared/Button'
+import ResumeButton from '@/components/sections/ResumeButton'
 import ContactForm from '@/components/shared/ContactForm'
 import {
   GithubIcon,
@@ -66,7 +66,7 @@ export default function ContactPage() {
                 </h3>
                 <p className="text-small text-text-secondary">{PORTFOLIO.phone}</p>
                 <p className="text-xs text-text-muted">
-                  Mon - Fri, 10am - 6pm IST
+                  Everyday, 10am - 10pm IST
                 </p>
               </a>
 
@@ -134,14 +134,7 @@ export default function ContactPage() {
             <h2 className="text-section font-bold text-text-primary">
               Or view my <span className="brand-text">resume</span>
             </h2>
-            <a
-              href={PORTFOLIO.resumeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl border-2 border-brand-blue text-brand-blue font-semibold hover:bg-brand-blue hover:text-white transition-all duration-300"
-            >
-              View Resume (PDF)
-            </a>
+            <ResumeButton />
           </div>
         </div>
       </section>
