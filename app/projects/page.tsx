@@ -28,7 +28,7 @@ export default function ProjectsPage() {
         </div>
       </section>
 
-      <section className="mt-0 pt-0">
+      <section className="section-padding mt-0 pt-0">
         <div className="container-width">
           <div className="grid grid-cols-1 gap-6 max-w-xl">
             {projectsData.map((project) => (

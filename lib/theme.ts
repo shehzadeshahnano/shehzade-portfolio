@@ -2,7 +2,7 @@ import type { Theme } from '@/types'
 
 export const THEME_STORAGE_KEY = 'theme'
 
-export const DEFAULT_THEME: Theme = 'system'
+export const DEFAULT_THEME: Theme = 'dark'
 
 export function resolveTheme(theme: Theme): 'light' | 'dark' {
   if (theme === 'system') {

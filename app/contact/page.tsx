@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <>
-      <section className="section-padding pt-12 lg:pt-20">
+      <section className="pt-12 lg:pt-20">
         <div className="container-width">
           <div className="flex flex-col gap-6 max-w-3xl">
             <h1 className="text-hero font-black text-text-primary">
@@ -132,11 +132,16 @@ export default function ContactPage() {
         <div className="container-width">
           <div className="flex flex-col items-center text-center gap-6 max-w-2xl mx-auto">
             <h2 className="text-section font-bold text-text-primary">
-              Or download my <span className="gradient-text">resume</span>
+              Or view my <span className="brand-text">resume</span>
             </h2>
-            <Button href={PORTFOLIO.resumeUrl} variant="outline" size="lg">
-              Download Resume (PDF)
-            </Button>
+            <a
+              href={PORTFOLIO.resumeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl border-2 border-brand-blue text-brand-blue font-semibold hover:bg-brand-blue hover:text-white transition-all duration-300"
+            >
+              View Resume (PDF)
+            </a>
           </div>
         </div>
       </section>

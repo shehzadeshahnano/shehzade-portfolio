@@ -19,10 +19,9 @@ interface ButtonProps {
 }
 
 const variants = {
-  primary: 'gradient-bg text-white hover:opacity-90 shadow-glow',
-  secondary:
-    'bg-brand-card text-text-primary border border-brand-border hover:bg-card-hover',
-  outline: 'border-2 border-brand-blue text-brand-blue hover:bg-brand-blue/10',
+  primary: 'bg-brand-blue text-white hover:opacity-90 shadow-glow', 
+  secondary: 'bg-card-bg text-text-primary border border-border hover:bg-card-hover',
+  outline: 'border-2 border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white',
   ghost: 'text-text-primary hover:bg-black/5 dark:hover:bg-white/10',
 }
 
