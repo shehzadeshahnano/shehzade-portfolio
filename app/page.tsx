@@ -397,14 +397,6 @@ export default function Home() {
               <Button href="/contact" variant="primary" size="lg">
                 Get In Touch
               </Button>
-              <a
-                href="/resume.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl border-2 border-brand-blue text-brand-blue font-semibold hover:bg-brand-blue hover:text-white transition-all duration-300"
-              >
-                View Resume
-              </a>
             </div>
           </div>
         </div>
