@@ -2,8 +2,13 @@
 
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
-import { X, Moon, Sun } from 'lucide-react'
-import { NAV_LINKS } from '@/lib/constants'
+import { X, Moon, Sun, Mail } from 'lucide-react'
+import {
+  GithubIcon,
+  LinkedinIcon,
+  TwitterIcon,
+} from '@/components/shared/SocialIcons'
+import { NAV_LINKS, PORTFOLIO } from '@/lib/constants'
 import { useTheme } from '@/hooks/useTheme'
 
 interface MobileMenuProps {
@@ -25,6 +30,13 @@ export default function MobileMenu({
       mounted &&
       typeof window !== 'undefined' &&
       window.matchMedia('(prefers-color-scheme: dark)').matches)
+
+  const socialLinks = [
+    { name: 'LinkedIn', url: PORTFOLIO.socialLinks.linkedin, icon: LinkedinIcon },
+    { name: 'Twitter', url: PORTFOLIO.socialLinks.twitter, icon: TwitterIcon },
+    { name: 'GitHub', url: PORTFOLIO.socialLinks.github, icon: GithubIcon },
+    { name: 'Email', url: `mailto:${PORTFOLIO.email}`, icon: Mail },
+  ]
 
   return (
     <AnimatePresence>
@@ -84,6 +96,31 @@ export default function MobileMenu({
                 </motion.div>
               ))}
             </nav>
+
+            {/* Social Links - Added above theme toggle */}
+            <div className="px-6 pb-4">
+              <p className="text-xs text-text-muted mb-3 uppercase tracking-wider font-semibold">
+                Connect With Me
+              </p>
+              <div className="flex gap-3">
+                {socialLinks.map((social, index) => (
+                  <motion.a
+                    key={social.name}
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3 + index * 0.05 }}
+                    className="p-3 rounded-xl bg-card-bg border border-border text-text-secondary 
+                      hover:text-brand-blue hover:border-brand-blue/40 transition-all cursor-pointer"
+                    aria-label={social.name}
+                  >
+                    <social.icon size={20} />
+                  </motion.a>
+                ))}
+              </div>
+            </div>
 
             <div className="p-6 border-t border-border flex items-center gap-2">
               <button
