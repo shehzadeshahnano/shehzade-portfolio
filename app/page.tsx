@@ -44,8 +44,8 @@ export default function Home() {
       {/* HERO SECTION */}
       <section className="section-padding pt-12 lg:pt-20">
         <div className="container-width">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start mb-12">
-            
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 mb-12">
+
             {/* Left: Intro */}
             <div className="flex flex-col gap-6 order-2 lg:order-1">
               <div className="flex flex-col gap-3">
@@ -77,7 +77,7 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* CTA Buttons - Fixed Height */}
+              {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-3 pt-2">
                 <Link
                   href="/projects"
@@ -97,31 +97,31 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Right: Image + Social Links Below */}
-            <div className="order-1 lg:order-2 flex flex-col gap-6">
-              <div className="w-full h-[350px] sm:h-[400px] lg:h-[450px] flex items-center justify-center">
-                <Scene3D />
-              </div>
-              
-              {/* Social Links - Below Image */}
-              <div className="flex flex-col items-center gap-3">
-                <div className="flex gap-3">
-                  {socialLinks.map((social) => (
-                    <a
-                      key={social.name}
-                      href={social.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-3 rounded-xl bg-card-bg border border-border text-text-secondary 
-                        hover:text-brand-blue hover:border-brand-blue/40 transition-all cursor-pointer hover:scale-110"
-                      aria-label={social.name}
-                    >
-                      <social.icon size={20} />
-                    </a>
-                  ))}
-                </div>
-              </div>
-            </div>
+            {/* Right: Image + Social Links - Properly Contained */}
+            <div className="order-1 lg:order-2 flex flex-col items-center justify-center">
+  {/* Image Container - Fixed height, overflow hidden prevents any spillover */}
+  <div className="w-full h-[280px] sm:h-[320px] md:h-[380px] lg:h-[420px] overflow-hidden rounded-2xl flex items-center justify-center">
+    <Scene3D />
+  </div>
+
+  {/* Social Links - Guaranteed separate block below */}
+  <div className="flex justify-center gap-3 mt-6">
+    {socialLinks.map((social) => (
+      <a
+        key={social.name}
+        href={social.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center justify-center w-11 h-11 rounded-xl bg-card-bg border border-border text-text-secondary 
+          hover:text-brand-blue hover:border-brand-blue/40 transition-all duration-200 cursor-pointer 
+          hover:scale-110 shadow-md"
+        aria-label={social.name}
+      >
+        <social.icon size={18} />
+      </a>
+    ))}
+  </div>
+</div>
           </div>
 
           {/* INFO GRID */}
@@ -178,8 +178,8 @@ export default function Home() {
                 About <span className="brand-text">Me</span>
               </h2>
               <p className="text-lg text-text-secondary leading-relaxed mb-6">
-                Passionate Software Developer with 1+ years of experience specializing in building 
-                client-based dashboard applications. Currently working at Guava Trees Softech Pvt Ltd, 
+                Passionate Software Developer with 1+ years of experience specializing in building
+                client-based dashboard applications. Currently working at Guava Trees Softech Pvt Ltd,
                 developing high-performance farm management solutions.
               </p>
               <div className="grid grid-cols-2 gap-4 mb-8">
@@ -192,7 +192,7 @@ export default function Home() {
                   <p className="text-sm text-text-secondary">Technologies</p>
                 </div>
               </div>
-              <Link 
+              <Link
                 href="/about"
                 className="inline-flex items-center gap-2 text-brand-blue font-semibold hover:gap-3 transition-all"
               >
@@ -229,14 +229,14 @@ export default function Home() {
             <h2 className="text-3xl lg:text-4xl font-bold text-text-primary">
               Work <span className="brand-text">Experience</span>
             </h2>
-            <Link 
+            <Link
               href="/about"
               className="hidden sm:inline-flex items-center gap-2 text-brand-blue font-semibold hover:gap-3 transition-all"
             >
               View All <ChevronRight size={18} />
             </Link>
           </div>
-          
+
           <div className="max-w-4xl">
             {experienceData.slice(0, 1).map((exp) => (
               <div key={exp.id} className="p-6 rounded-2xl bg-card-bg border border-border hover:border-brand-blue/40 transition-all">
@@ -256,9 +256,9 @@ export default function Home() {
               </div>
             ))}
           </div>
-          
+
           <div className="mt-8 text-center sm:hidden">
-            <Link 
+            <Link
               href="/about"
               className="inline-flex items-center gap-2 text-brand-blue font-semibold"
             >
@@ -275,7 +275,7 @@ export default function Home() {
             <h2 className="text-3xl lg:text-4xl font-bold text-text-primary">
               Featured <span className="brand-text">Projects</span>
             </h2>
-            <Link 
+            <Link
               href="/projects"
               className="hidden sm:inline-flex items-center gap-2 text-brand-blue font-semibold hover:gap-3 transition-all"
             >
@@ -329,9 +329,9 @@ export default function Home() {
               </Link>
             ))}
           </div>
-          
+
           <div className="mt-8 text-center sm:hidden">
-            <Link 
+            <Link
               href="/projects"
               className="inline-flex items-center gap-2 text-brand-blue font-semibold"
             >
@@ -347,7 +347,7 @@ export default function Home() {
           <h2 className="text-3xl lg:text-4xl font-bold text-text-primary mb-12 text-center">
             <span className="brand-text">Education</span> & Background
           </h2>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             {educationData.map((edu) => (
               <div
@@ -371,9 +371,9 @@ export default function Home() {
               </div>
             ))}
           </div>
-          
+
           <div className="mt-8 text-center">
-            <Link 
+            <Link
               href="/about"
               className="inline-flex items-center gap-2 text-brand-blue font-semibold hover:gap-3 transition-all"
             >
