@@ -15,7 +15,6 @@
     --text-secondary: #94a3b8;
     --text-muted: #475569;
     --text-soft: #64748b;
-    /* Single brand color instead of gradient */
     --brand-primary: #3b82f6;
     --brand-secondary: #60a5fa;
     --accent-glow: rgba(59, 130, 246, 0.15);
@@ -60,21 +59,28 @@
     background: var(--background);
   }
 
-  /* Focus visible fixes - remove outline on mouse, keep on keyboard */
+  /* FIX: Disable ALL focus outlines globally */
   *:focus {
-    outline: none;
+    outline: none !important;
+    box-shadow: none !important;
   }
 
-  *:focus-visible {
-    outline: 2px solid var(--brand-primary);
-    outline-offset: 2px;
+  /* FIX: Only show focus ring on interactive elements when using keyboard */
+  button:focus-visible,
+  a:focus-visible,
+  [role="button"]:focus-visible,
+  [role="link"]:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    outline: 2px solid var(--brand-primary) !important;
+    outline-offset: 2px !important;
   }
 
-  /* Remove focus ring on click for buttons and links */
-  button:focus:not(:focus-visible),
-  a:focus:not(:focus-visible) {
-    outline: none;
-    box-shadow: none;
+  /* FIX: Ensure no focus ring on mouse click for any element */
+  *:focus:not(:focus-visible) {
+    outline: none !important;
+    box-shadow: none !important;
   }
 
   /* Scrollbar styling */
@@ -196,7 +202,6 @@
 }
 
 @layer utilities {
-  /* Solid brand color instead of gradient */
   .brand-text {
     color: var(--brand-primary);
   }
@@ -205,12 +210,10 @@
     background-color: var(--brand-primary);
   }
 
-  /* REMOVE gradient-text utility - replaced with solid color */
   .gradient-text {
     color: var(--brand-primary);
   }
 
-  /* Alternative: if you want subtle gradient only as accent */
   .accent-gradient {
     background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
     -webkit-background-clip: text;
