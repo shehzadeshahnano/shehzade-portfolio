@@ -15,6 +15,29 @@ export const metadata: Metadata = {
 }
 
 export default function ContactPage() {
+
+  const renderIcon = (iconComponent: any) => {
+    // If it's already a component, render it directly
+    if (typeof iconComponent === 'function') {
+      const IconComponent = iconComponent
+      return <IconComponent size={18} />
+    }
+    
+    // If it's a string (fallback), map it
+    switch (iconComponent) {
+      case 'Github':
+        return <GithubIcon size={18} />
+      case 'Linkedin':
+        return <LinkedinIcon size={18} />
+      case 'Twitter':
+        return <TwitterIcon size={18} />
+      case 'Mail':
+        return <Mail size={18} />
+      default:
+        return null
+    }
+  }
+
   return (
     <>
       <section className="pt-12 lg:pt-20">
@@ -108,10 +131,7 @@ export default function ContactPage() {
                       aria-label={name}
                       title={name}
                     >
-                      {icon === 'Github' && <GithubIcon size={18} />}
-                      {icon === 'Linkedin' && <LinkedinIcon size={18} />}
-                      {icon === 'Twitter' && <TwitterIcon size={18} />}
-                      {icon === 'Mail' && <Mail size={18} />}
+                      {renderIcon(icon)}
                     </a>
                   ))}
                 </div>

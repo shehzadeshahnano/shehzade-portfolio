@@ -100,27 +100,32 @@ export default function Home() {
 
             {/* Right: Image + Social Links - Properly Contained */}
             <div className="order-1 lg:order-2 flex flex-col items-center justify-center">
-              {/* Image Container - Fixed height, overflow hidden prevents any spillover */}
-              <div className="w-full h-[420px] sm:h-[460px] md:h-[500px] lg:h-[540px] flex items-center justify-center">
+              {/* Image Container - Z-INDEX CONTROLLED */}
+              <div className="w-full h-[420px] sm:h-[460px] md:h-[500px] lg:h-[540px] flex items-center justify-center relative z-10">
                 <Scene3D />
               </div>
 
-              {/* Social Links */}
-              <div className="flex justify-center gap-3 mt-6">
-                {socialLinks.map((social) => (
-                  <a
-                    key={social.name}
-                    href={social.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center w-11 h-11 rounded-xl bg-card-bg border border-border text-text-secondary 
-          hover:text-brand-blue hover:border-brand-blue/40 transition-all duration-200 cursor-pointer 
-          hover:scale-110 shadow-md"
-                    aria-label={social.name}
-                  >
-                    <social.icon size={18} />
-                  </a>
-                ))}
+              {/* Social Links - Z-INDEX FIXED */}
+              <div className="flex justify-center gap-3 mt-6 relative z-50">
+                {socialLinks.map((social) => {
+                  const IconComponent = social.icon;
+                  return (
+                    <a
+                      key={social.name}
+                      href={social.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="relative z-50 flex items-center justify-center w-11 h-11 rounded-xl bg-card-bg border border-border text-text-secondary hover:text-brand-blue hover:border-brand-blue/40 transition-all duration-200 hover:scale-110 shadow-md"
+                      style={{
+                        cursor: 'pointer',
+                        pointerEvents: 'auto'
+                      }}
+                      aria-label={social.name}
+                    >
+                      <IconComponent size={18} />
+                    </a>
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -250,7 +255,7 @@ export default function Home() {
                 </div>
                 <p className="text-text-secondary mb-4 line-clamp-2">{exp.description}</p>
                 <div className="flex flex-wrap gap-2">
-                  {exp.technologies.slice(0, 8).map((tech) => (
+                  {exp.technologies.slice(0, 9).map((tech) => (
                     <Badge key={tech} variant="secondary" size="xs">{tech}</Badge>
                   ))}
                 </div>
