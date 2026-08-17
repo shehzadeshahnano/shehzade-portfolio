@@ -13,5 +13,9 @@ const Hero3D = dynamic(() => import('./Hero3D'), {
 })
 
 export default function Scene3D() {
-  return <Hero3D />
+  return (
+    <div className="w-full h-full overflow-visible">
+      <Hero3D />
+    </div>
+  )
 }

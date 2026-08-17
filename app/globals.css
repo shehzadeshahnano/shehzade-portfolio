@@ -59,6 +59,21 @@
     background: var(--background);
   }
 
+  .container-width {
+    overflow-y: visible !important;
+     overflow-x: hidden !important;
+  }
+  
+  /* Constrain 3D transforms on mobile */
+  @media (max-width: 768px) {
+    .perspective-1000 {
+      perspective: 500px;
+    }
+    
+    [style*="translateZ"] {
+      transform: none !important;
+    }
+  }
   /* FIX: Disable ALL focus outlines globally */
   *:focus {
     outline: none !important;

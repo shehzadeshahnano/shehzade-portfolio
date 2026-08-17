@@ -9,11 +9,11 @@ export default function Hero3D() {
 
         {/* Outermost soft glow bloom */}
         <div className="absolute rounded-full bg-gradient-to-br from-brand-blue/25 via-blue-500/10 to-cyan-400/20 blur-3xl"
-             style={{ width: '500px', height: '500px' }} />
+          style={{ width: '500px', height: '500px' }} />
 
         {/* Second glow layer */}
         <div className="absolute rounded-full bg-gradient-to-tr from-cyan-400/15 via-brand-blue/20 to-blue-600/15 blur-2xl"
-             style={{ width: '440px', height: '440px' }} />
+          style={{ width: '440px', height: '440px' }} />
 
         {/* Animated rotating gradient ring - outer */}
         <div
@@ -86,7 +86,6 @@ export default function Hero3D() {
           style={{
             width: '360px',
             height: '360px',
-            border: '3px solid rgba(59, 130, 246, 0.7)',
             boxShadow: '0 0 0 1px rgba(6, 182, 212, 0.2), 0 0 30px rgba(59, 130, 246, 0.35), 0 0 60px rgba(59, 130, 246, 0.15), inset 0 0 20px rgba(59, 130, 246, 0.05)',
           }}
         >

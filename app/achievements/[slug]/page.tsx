@@ -146,12 +146,14 @@ export default async function AchievementDetailPage({ params }: AchievementPageP
                         </div>
 
                         {/* Right: 3D Image */}
-                        <div className={`relative w-full h-[400px] lg:h-[500px] rounded-2xl shadow-2xl ${colors.glow}`}>
-                            <AwardImage3D
-                                src={achievement.image}
-                                alt={achievement.title}
-                                category={achievement.category}
-                            />
+                        <div className="relative w-full h-[400px] lg:h-[500px] overflow-hidden">
+                            <div className={`w-full h-full rounded-2xl shadow-2xl ${colors.glow} overflow-hidden`}>
+                                <AwardImage3D
+                                    src={achievement.image}
+                                    alt={achievement.title}
+                                    category={achievement.category}
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>

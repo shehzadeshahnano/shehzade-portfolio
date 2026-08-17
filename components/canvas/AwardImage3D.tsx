@@ -103,26 +103,28 @@ export default function AwardImage3D({ src, alt, category }: AwardImage3DProps) 
   const shouldShowPlaceholder = !src || imageError || src.includes('placeholder')
 
   return (
-    <div ref={ref} className="relative w-full h-full perspective-1000">
-      <motion.div
-        style={{
-          rotateX,
-          rotateY,
-          transformStyle: 'preserve-3d',
-        }}
-        className="relative w-full h-full"
-      >
-        {/* Glow background */}
-        <div
-          className={`absolute inset-0 bg-gradient-to-br ${style.gradient} blur-2xl opacity-40 rounded-2xl`}
-          style={{ transform: 'translateZ(-50px)' }}
-        />
+    <div ref={ref} className="relative w-full h-full perspective-1000 overflow-hidden">
+    <motion.div
+      style={{
+        rotateX,
+        rotateY,
+        transformStyle: 'preserve-3d',
+      }}
+      className="relative w-full h-full overflow-hidden"
+      // Add bounds to prevent overflow
+      transition={{ type: "tween", ease: "easeOut", duration: 0.15 }}
+    >
+      {/* Glow background - constrained */}
+      <div
+        className={`absolute inset-2 bg-gradient-to-br ${style.gradient} blur-xl opacity-40 rounded-2xl`}
+        style={{ transform: 'translateZ(-20px)' }}
+      />
 
-        {/* Main Container */}
-        <div
-          className={`relative w-full h-full rounded-2xl overflow-hidden border-2 ${style.border} shadow-2xl`}
-          style={{ transform: 'translateZ(20px)' }}
-        >
+      {/* Main Container - constrained */}
+      <div
+        className={`relative w-full h-full rounded-2xl overflow-hidden border-2 ${style.border} shadow-2xl`}
+        style={{ transform: 'translateZ(10px)' }}
+      >
           
           {/* Real Image (if available) */}
           {!shouldShowPlaceholder && (
