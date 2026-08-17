@@ -1,4 +1,6 @@
-import type { Metadata } from 'next'
+'use client'
+
+import { motion } from 'framer-motion'
 import { PORTFOLIO } from '@/lib/constants'
 import { skillsData } from '@/data/skills'
 import { experienceData } from '@/data/experience'
@@ -11,11 +13,6 @@ import CompanyHighlight from '@/components/sections/CompanyHighlight'
 import LearningCallout from '@/components/shared/LearningCallout'
 import Achievements from '@/components/sections/Achievements'
 import AnimatedSection from '@/components/shared/AnimationSection'
-
-export const metadata: Metadata = {
-  title: 'About',
-  description: `Learn more about ${PORTFOLIO.name} — ${PORTFOLIO.title} based in ${PORTFOLIO.location}.`,
-}
 
 export default function AboutPage() {
   return (
@@ -109,23 +106,40 @@ export default function AboutPage() {
           </h2>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {skillsData.map((category) => (
-              <div key={category.category} className="flex flex-col gap-6">
+            {skillsData.map((category, categoryIndex) => (
+              <motion.div
+                key={category.category}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-50px' }}
+                transition={{ delay: categoryIndex * 0.1, duration: 0.5 }}
+                className="flex flex-col gap-6"
+              >
                 <h3 className="text-lg font-bold text-text-primary">
                   {category.category}
                 </h3>
                 <div className="flex flex-col gap-5">
-                  {category.skills.map((skill) => (
-                    <SkillBar
+                  {category.skills.map((skill, skillIndex) => (
+                    <motion.div
                       key={skill.name}
-                      name={skill.name}
-                      level={skill.level}
-                      years={skill.years}
-                      proficiency={skill.proficiency}
-                    />
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true, margin: '-50px' }}
+                      transition={{
+                        delay: (categoryIndex * 0.1) + (skillIndex * 0.05),
+                        duration: 0.4
+                      }}
+                    >
+                      <SkillBar
+                        name={skill.name}
+                        level={skill.level}
+                        years={skill.years}
+                        proficiency={skill.proficiency}
+                      />
+                    </motion.div>
                   ))}
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
