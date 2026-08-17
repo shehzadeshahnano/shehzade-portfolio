@@ -13,6 +13,7 @@ import Scene3D from '@/components/canvas/Scene3D'
 import { skillsData } from '@/data/skills'
 import { experienceData } from '@/data/experience'
 import { educationData } from '@/data/education'
+import AchievementsPreview from '@/components/sections/AchievementsPreview'
 
 const mainTechs = [
   { name: 'React' },
@@ -100,7 +101,7 @@ export default function Home() {
             {/* Right: Image + Social Links - Properly Contained */}
             <div className="order-1 lg:order-2 flex flex-col items-center justify-center">
               {/* Image Container - Fixed height, overflow hidden prevents any spillover */}
-              <div className="w-full h-[280px] sm:h-[320px] md:h-[380px] lg:h-[420px] overflow-hidden rounded-2xl flex items-center justify-center">
+              <div className="w-full h-[420px] sm:h-[460px] md:h-[500px] lg:h-[540px] flex items-center justify-center">
                 <Scene3D />
               </div>
 
@@ -202,13 +203,13 @@ export default function Home() {
             <div className="flex-1 w-full">
               <h3 className="text-lg font-bold text-text-primary mb-4">Core Skills</h3>
               <div className="flex flex-col gap-4">
-                {skillsData.slice(0, 2).map((category) => (
+                {skillsData.slice(0, 3).map((category) => (
                   <div key={category.category} className="p-4 rounded-xl bg-background border border-border">
                     <h4 className="text-sm font-semibold text-text-muted mb-3 uppercase tracking-wider">
                       {category.category}
                     </h4>
                     <div className="flex flex-wrap gap-2">
-                      {category.skills.slice(0, 4).map((skill) => (
+                      {category.skills.slice(0, 6).map((skill) => (
                         <Badge key={skill.name} variant="secondary" size="sm">
                           {skill.name}
                         </Badge>
@@ -267,6 +268,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* ACHIEVEMENTS SECTION */}
+      <AchievementsPreview />
 
       {/* PROJECTS SECTION */}
       <section className="section-padding bg-card-bg">
@@ -348,7 +352,7 @@ export default function Home() {
             <span className="brand-text">Education</span> & Background
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
             {educationData.map((edu) => (
               <div
                 key={edu.id}

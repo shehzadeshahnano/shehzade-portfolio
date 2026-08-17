@@ -53,6 +53,22 @@ export interface Education {
   highlights?: string[]
 }
 
+export interface Achievement {
+  id: string
+  title: string
+  slug: string
+  event: string
+  organization: string
+  year: string
+  date: string
+  category: 'Technical Excellence' | 'Team Recognition' | 'Individual Recognition' | 'Leadership' | 'Innovation'
+  description: string
+  highlights: string[]
+  image: string
+  certificateUrl?: string
+  featured: boolean
+}
+
 export interface SocialLink {
   name: string
   url: string

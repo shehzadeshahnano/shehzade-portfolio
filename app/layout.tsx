@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
+import ThemeScript from '@/components/shared/ThemeScript'
 import { PORTFOLIO } from '@/lib/constants'
 
 const inter = Inter({
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://shehzade-portfolio.vercel.app'),
   title: 'Shehzade Shahnano | React Frontend Developer | Portfolio',
   description:
-    'Professional portfolio of Shehzade Shahnano - React Frontend Developer specializing in scalable, responsive web applications. Currently working at Guava Trees Softech on a farm management dashboard.',
+    'Professional portfolio of Shehzade Shahnano - React Frontend Developer specializing in scalable, responsive web applications.',
   keywords: [
     'Shehzade Shahnano',
     'React Developer',
@@ -57,8 +58,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Shehzade Shahnano | React Frontend Developer',
-    description:
-      'Specializing in React, UI/UX Design, and Responsive Web Development',
+    description: 'Specializing in React, UI/UX Design, and Responsive Web Development',
     images: [PORTFOLIO.profileImage],
     creator: '@shehzadedev',
   },
@@ -93,32 +93,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                try {
-                  var saved = localStorage.getItem('theme');
-                  var theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-                  if (theme === 'system') {
-                    theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-                  }
-                  if (theme === 'light') {
-                    document.documentElement.classList.add('light');
-                    document.documentElement.classList.remove('dark');
-                  } else {
-                    document.documentElement.classList.add('dark');
-                    document.documentElement.classList.remove('light');
-                  }
-                } catch (e) {}
-              })();
-            `,
-          }}
-        />
+        <ThemeScript />
       </head>
-      <body
-        className={`${inter.className} bg-background text-text-primary antialiased`}
-      >
+      <body className={`${inter.className} bg-background text-text-primary antialiased`}>
         <Header />
         <main className="relative z-0 min-h-screen pt-20">{children}</main>
         <Footer />

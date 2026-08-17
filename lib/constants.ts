@@ -80,8 +80,8 @@ export const HIGHLIGHTS = [
     description: 'Tech stack expertise',
   },
   {
-    label: '5+',
-    value: 'Projects',
+    label: '1',
+    value: 'Project',
     description: 'Completed projects',
   },
   {

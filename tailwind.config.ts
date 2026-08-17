@@ -61,6 +61,7 @@ const config: Config = {
         'fade-in': 'fadeIn 0.6s ease forwards',
         'slide-in': 'slideIn 0.6s ease forwards',
         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'spin-slow': 'spin 8s linear infinite',
         float: 'float 6s ease-in-out infinite',
       },
       keyframes: {
@@ -87,6 +88,11 @@ const config: Config = {
         card: '0 4px 24px rgba(0, 0, 0, 0.4)',
         'card-hover': '0 20px 60px rgba(37, 99, 235, 0.15)',
       },
+      perspective: {
+        '1000': '1000px',
+        '1500': '1500px',
+        '2000': '2000px',
+      },
       screens: {
         xs: '475px',
       },
@@ -95,7 +101,27 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }: any) {
+      addUtilities({
+        '.perspective-1000': {
+          perspective: '1000px',
+        },
+        '.perspective-1500': {
+          perspective: '1500px',
+        },
+        '.perspective-2000': {
+          perspective: '2000px',
+        },
+        '.preserve-3d': {
+          transformStyle: 'preserve-3d',
+        },
+        '.backface-hidden': {
+          backfaceVisibility: 'hidden',
+        },
+      })
+    },
+  ],
 }
 
 export default config

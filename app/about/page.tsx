@@ -9,6 +9,7 @@ import ExperienceCard from '@/components/shared/ExperienceCard'
 import Badge from '@/components/shared/Badge'
 import CompanyHighlight from '@/components/sections/CompanyHighlight'
 import LearningCallout from '@/components/shared/LearningCallout'
+import Achievements from '@/components/sections/Achievements'
 
 export const metadata: Metadata = {
   title: 'About',
@@ -88,6 +89,8 @@ export default function AboutPage() {
       </section>
 
       <CompanyHighlight />
+
+      <Achievements />
 
       <section className="section-padding">
         <div className="container-width">
