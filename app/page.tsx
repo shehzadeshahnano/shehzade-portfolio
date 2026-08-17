@@ -250,7 +250,7 @@ export default function Home() {
                 </div>
                 <p className="text-text-secondary mb-4 line-clamp-2">{exp.description}</p>
                 <div className="flex flex-wrap gap-2">
-                  {exp.technologies.slice(0, 6).map((tech) => (
+                  {exp.technologies.slice(0, 8).map((tech) => (
                     <Badge key={tech} variant="secondary" size="xs">{tech}</Badge>
                   ))}
                 </div>
