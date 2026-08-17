@@ -13,6 +13,7 @@ import Scene3D from '@/components/canvas/Scene3D'
 import { skillsData } from '@/data/skills'
 import { experienceData } from '@/data/experience'
 import { educationData } from '@/data/education'
+import AnimatedSection from '@/components/shared/AnimationSection'
 import AchievementsPreview from '@/components/sections/AchievementsPreview'
 
 const mainTechs = [
@@ -176,7 +177,7 @@ export default function Home() {
       </section>
 
       {/* ABOUT PREVIEW SECTION */}
-      <section className="section-padding bg-card-bg">
+      <AnimatedSection className="section-padding bg-card-bg">
         <div className="container-width">
           <div className="flex flex-col lg:flex-row gap-12 items-center">
             <div className="flex-1">
@@ -226,10 +227,10 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* EXPERIENCE PREVIEW SECTION */}
-      <section className="section-padding">
+      <AnimatedSection className="section-padding">
         <div className="container-width">
           <div className="flex items-center justify-between mb-12">
             <h2 className="text-3xl lg:text-4xl font-bold text-text-primary">
@@ -272,13 +273,16 @@ export default function Home() {
             </Link>
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* ACHIEVEMENTS SECTION */}
+      <AnimatedSection>
         <AchievementsPreview />
+      </AnimatedSection>
+
 
       {/* PROJECTS SECTION */}
-      <section className="section-padding bg-card-bg">
+      <AnimatedSection className="section-padding bg-card-bg">
         <div className="container-width">
           <div className="flex items-center justify-between mb-12">
             <h2 className="text-3xl lg:text-4xl font-bold text-text-primary">
@@ -348,10 +352,10 @@ export default function Home() {
             </Link>
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* EDUCATION PREVIEW */}
-      <section className="section-padding">
+      <AnimatedSection className="section-padding">
         <div className="container-width">
           <h2 className="text-3xl lg:text-4xl font-bold text-text-primary mb-12 text-center">
             <span className="brand-text">Education</span> & Background
@@ -390,10 +394,10 @@ export default function Home() {
             </Link>
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* CONTACT CTA SECTION */}
-      <section className="section-padding bg-card-bg">
+      <AnimatedSection className="section-padding bg-card-bg">
         <div className="container-width">
           <div className="flex flex-col items-center text-center gap-6 max-w-2xl mx-auto">
             <h2 className="text-3xl lg:text-4xl font-bold text-text-primary">
@@ -409,7 +413,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </AnimatedSection>
     </>
   )
 }

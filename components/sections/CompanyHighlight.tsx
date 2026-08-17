@@ -27,8 +27,8 @@ export default function CompanyHighlight() {
       variants={staggerContainer}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: '-50px' }}
-      className="section-padding bg-card-bg"
+      viewport={{ once: true, margin: '-100px' }}
+      className="py-8 lg:py-12 bg-card-bg"
     >
       <div className="container-width">
         <motion.div
@@ -54,8 +54,8 @@ export default function CompanyHighlight() {
                 </p>
               </div>
               <Badge variant="primary" size="md">
-  On-site in Bhopal
-</Badge>
+                On-site in Bhopal
+              </Badge>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">

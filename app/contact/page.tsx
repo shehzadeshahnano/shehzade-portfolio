@@ -3,6 +3,7 @@ import { Mail, Phone, MapPin } from 'lucide-react'
 import { PORTFOLIO, SOCIAL_LINKS, CURRENT_COMPANY } from '@/lib/constants'
 import ResumeButton from '@/components/sections/ResumeButton'
 import ContactForm from '@/components/shared/ContactForm'
+import AnimatedSection from '@/components/shared/AnimationSection'
 import {
   GithubIcon,
   LinkedinIcon,
@@ -40,7 +41,7 @@ export default function ContactPage() {
 
   return (
     <>
-      <section className="pt-12 lg:pt-20">
+      <AnimatedSection className="pt-12 lg:pt-20">
         <div className="container-width">
           <div className="flex flex-col gap-6 max-w-3xl">
             <h1 className="text-hero font-black text-text-primary">
@@ -53,9 +54,9 @@ export default function ContactPage() {
             </p>
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
-      <section className="section-padding pt-0">
+      <AnimatedSection className="section-padding pt-0">
         <div className="container-width">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="flex flex-col gap-6">
@@ -146,9 +147,9 @@ export default function ContactPage() {
             </div>
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
-      <section className="section-padding bg-card-bg">
+      <AnimatedSection className="section-padding bg-card-bg">
         <div className="container-width">
           <div className="flex flex-col items-center text-center gap-6 max-w-2xl mx-auto">
             <h2 className="text-section font-bold text-text-primary">
@@ -157,7 +158,7 @@ export default function ContactPage() {
             <ResumeButton />
           </div>
         </div>
-      </section>
+      </AnimatedSection>
     </>
   )
 }

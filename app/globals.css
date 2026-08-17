@@ -48,7 +48,6 @@
   html {
     scroll-behavior: smooth;
     overflow-x: hidden;
-    overflow-y: scroll;
     scrollbar-gutter: stable;
   }
 
@@ -59,13 +58,6 @@
     line-height: 1.6;
     transition: background 0.3s ease, color 0.3s ease;
     background: var(--background);
-    /* Prevent body from changing width */
-    width: 100%;
-  }
-
-  .container-width {
-    overflow-y: visible !important;
-    overflow-x: hidden !important;
   }
   
   /* Constrain 3D transforms on mobile */

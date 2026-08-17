@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, type Variants } from 'framer-motion'
 import { Trophy, Calendar, Award, Download, ChevronRight, Eye } from 'lucide-react'
 import Link from 'next/link'
 import Badge from '@/components/shared/Badge'
@@ -14,7 +14,7 @@ interface AchievementCardProps {
     variant?: 'default' | 'compact'
 }
 
-const fadeUpVariant = {
+const fadeUpVariant : Variants = {
     hidden: { opacity: 0, y: 30 },
     visible: (i: number) => ({
         opacity: 1,
@@ -81,6 +81,7 @@ export default function AchievementCard({ achievement, index = 0, variant = 'def
                 custom={index}
                 initial="hidden"
                 whileInView="visible"
+                variants={fadeUpVariant}
                 viewport={{ once: true, margin: '-50px' }}
                 className="group relative hover:z-20"
             >

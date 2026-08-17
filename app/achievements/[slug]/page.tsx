@@ -6,6 +6,7 @@ import Button from '@/components/shared/Button'
 import AwardImage3D from '@/components/canvas/AwardImage3D'
 import type { Metadata } from 'next'
 import CertificateButton from '@/components/shared/CertificateButton'
+import AnimatedSection from '@/components/shared/AnimationSection'
 
 interface AchievementPageProps {
     params: Promise<{
@@ -54,12 +55,12 @@ export default async function AchievementDetailPage({ params }: AchievementPageP
                 }
             case 'Individual Recognition':
                 return {
-                    text: 'text-brand-blue',
-                    border: 'border-brand-blue/30',
-                    bg: 'bg-brand-blue/10',
-                    badge: 'bg-brand-blue/10 text-brand-blue border-brand-blue/20',
-                    accent: 'via-brand-blue/60',
-                    glow: 'shadow-brand-blue/20',
+                    text: 'text-blue-500',
+                    border: 'border-blue-500/30',
+                    bg: 'bg-blue-500/10',
+                    badge: 'bg-blue-500/10 text-blue-500 border-blue-500/20',
+                    accent: 'via-blue-500/60',
+                    glow: 'shadow-blue-500/20',
                 }
             case 'Team Recognition':
                 return {
@@ -72,12 +73,12 @@ export default async function AchievementDetailPage({ params }: AchievementPageP
                 }
             default:
                 return {
-                    text: 'text-brand-blue',
-                    border: 'border-brand-blue/30',
-                    bg: 'bg-brand-blue/10',
-                    badge: 'bg-brand-blue/10 text-brand-blue border-brand-blue/20',
-                    accent: 'via-brand-blue/60',
-                    glow: 'shadow-brand-blue/20',
+                    text: 'text-blue-500',  
+                    border: 'border-blue-500/30',
+                    bg: 'bg-blue-500/10',
+                    badge: 'bg-blue-500/10 text-blue-500 border-blue-500/20',
+                    accent: 'via-blue-500/60',
+                    glow: 'shadow-blue-500/20',
                 }
         }
     }
@@ -160,16 +161,15 @@ export default async function AchievementDetailPage({ params }: AchievementPageP
             </section>
 
             {/* Rest of your sections remain the same... */}
-            <section className="section-padding bg-card-bg">
+            <AnimatedSection className="section-padding bg-card-bg">
                 <div className="container-width">
                     <div className="max-w-4xl mx-auto">
                         <div className="flex items-center gap-3 mb-8">
                             <Award size={28} className={colors.text} />
                             <h2 className="text-3xl font-bold text-text-primary">
-                                Key <span className="brand-text">Highlights</span>
+                                Key <span className={colors.text}>Highlights</span>
                             </h2>
                         </div>
-
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             {achievement.highlights.map((highlight, index) => (
                                 <div
@@ -193,16 +193,16 @@ export default async function AchievementDetailPage({ params }: AchievementPageP
                         />
                     </div>
                 </div>
-            </section>
+            </AnimatedSection>
 
             {/* Info Cards Section */}
-            <section className="section-padding">
+            <AnimatedSection className="section-padding">
                 <div className="container-width">
                     <div className="max-w-4xl mx-auto">
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                             <div className="p-6 rounded-xl bg-card-bg border border-border text-center hover:border-brand-blue/30 transition-colors">
                                 <Calendar size={24} className={`${colors.text} mx-auto mb-3`} />
-                                <p className="text-2xl font-black brand-text mb-1">{achievement.year}</p>
+                                <p className={`text-2xl font-black ${colors.text} mb-1`}>{achievement.year}</p>
                                 <p className="text-sm text-text-muted">Award Year</p>
                             </div>
 
@@ -220,10 +220,10 @@ export default async function AchievementDetailPage({ params }: AchievementPageP
                         </div>
                     </div>
                 </div>
-            </section>
+            </AnimatedSection>
 
             {/* CTA Section */}
-            <section className="section-padding bg-card-bg">
+            <AnimatedSection className="section-padding bg-card-bg">
                 <div className="container-width">
                     <div className="flex flex-col items-center text-center gap-6 max-w-2xl mx-auto">
                         <h2 className="text-3xl lg:text-4xl font-bold text-text-primary">
@@ -242,7 +242,7 @@ export default async function AchievementDetailPage({ params }: AchievementPageP
                         </div>
                     </div>
                 </div>
-            </section>
+            </AnimatedSection>
         </>
     )
 }

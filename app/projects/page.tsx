@@ -4,6 +4,7 @@ import { projectsData } from '@/data/projects'
 import Card from '@/components/shared/Card'
 import Badge from '@/components/shared/Badge'
 import Button from '@/components/shared/Button'
+import AnimatedSection from '@/components/shared/AnimationSection'
 
 export const metadata: Metadata = {
   title: 'Projects',
@@ -82,7 +83,7 @@ export default function ProjectsPage() {
         </div>
       </section>
 
-      <section className="section-padding bg-card-bg">
+      <AnimatedSection className="section-padding bg-card-bg">
         <div className="container-width">
           <div className="flex flex-col items-center text-center gap-6 max-w-2xl mx-auto">
             <h2 className="text-section font-bold text-text-primary">
@@ -93,7 +94,7 @@ export default function ProjectsPage() {
             </Button>
           </div>
         </div>
-      </section>
+      </AnimatedSection>
     </>
   )
 }

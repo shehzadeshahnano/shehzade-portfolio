@@ -1,11 +1,33 @@
 import type { Config } from 'tailwindcss'
 
-const config: Config = {
+const config= {
   darkMode: 'class',
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
+  ],
+  safelist: [
+    'text-yellow-500',
+    'text-yellow-600',
+    'text-purple-500',
+    'text-purple-600',
+    'text-blue-500',
+    'border-yellow-500/30',
+    'border-purple-500/30',
+    'border-blue-500/30',
+    'bg-yellow-500/10',
+    'bg-purple-500/10',
+    'bg-blue-500/10',
+    'border-yellow-500/20',
+    'border-purple-500/20',
+    'border-blue-500/20',
+    'via-yellow-500/60',
+    'via-purple-500/60',
+    'via-blue-500/60',
+    'shadow-yellow-500/20',
+    'shadow-purple-500/20',
+    'shadow-blue-500/20',
   ],
   theme: {
     extend: {

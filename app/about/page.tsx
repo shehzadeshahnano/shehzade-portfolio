@@ -10,6 +10,7 @@ import Badge from '@/components/shared/Badge'
 import CompanyHighlight from '@/components/sections/CompanyHighlight'
 import LearningCallout from '@/components/shared/LearningCallout'
 import Achievements from '@/components/sections/Achievements'
+import AnimatedSection from '@/components/shared/AnimationSection'
 
 export const metadata: Metadata = {
   title: 'About',
@@ -32,7 +33,76 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="section-padding bg-card-bg">
+      <div className="bg-background">
+        <div className="container-width">
+          <div className="h-1 w-full bg-gradient-to-r from-transparent via-brand-blue/60 to-transparent rounded-full" />
+        </div>
+      </div>
+
+      <AnimatedSection className="section-padding">
+        <div className="container-width">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Left: Text Content */}
+            <div className="flex flex-col gap-6">
+              <h2 className="text-section font-bold text-text-primary">
+                My <span className="brand-text">Journey</span>
+              </h2>
+              <p className="text-body-lg text-text-secondary leading-relaxed">
+                I'm a passionate frontend developer with a keen eye for creating seamless user experiences.
+                Over the past year, I've specialized in building scalable React applications with modern
+                design patterns and best practices.
+              </p>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="p-4 rounded-xl bg-card-bg border border-border">
+                  <p className="text-3xl font-black brand-text mb-1">1+</p>
+                  <p className="text-sm text-text-secondary">Years Experience</p>
+                </div>
+                <div className="p-4 rounded-xl bg-card-bg border border-border">
+                  <p className="text-3xl font-black brand-text mb-1">15+</p>
+                  <p className="text-sm text-text-secondary">Technologies</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Right: Icon Grid or Stats */}
+            <div className="grid grid-cols-2 gap-6">
+              <div className="p-6 rounded-2xl bg-card-bg border border-border hover:border-brand-blue/40 transition-all group">
+                <div className="w-12 h-12 rounded-lg bg-brand-blue/10 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                  <span className="text-2xl">⚛️</span>
+                </div>
+                <h3 className="font-bold text-text-primary mb-1">React Expert</h3>
+                <p className="text-xs text-text-secondary">Building modern UIs</p>
+              </div>
+
+              <div className="p-6 rounded-2xl bg-card-bg border border-border hover:border-brand-blue/40 transition-all group">
+                <div className="w-12 h-12 rounded-lg bg-brand-blue/10 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                  <span className="text-2xl">🎨</span>
+                </div>
+                <h3 className="font-bold text-text-primary mb-1">UI/UX Focus</h3>
+                <p className="text-xs text-text-secondary">User-centric design</p>
+              </div>
+
+              <div className="p-6 rounded-2xl bg-card-bg border border-border hover:border-brand-blue/40 transition-all group">
+                <div className="w-12 h-12 rounded-lg bg-brand-blue/10 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                  <span className="text-2xl">🚀</span>
+                </div>
+                <h3 className="font-bold text-text-primary mb-1">Performance</h3>
+                <p className="text-xs text-text-secondary">Optimized solutions</p>
+              </div>
+
+              <div className="p-6 rounded-2xl bg-card-bg border border-border hover:border-brand-blue/40 transition-all group">
+                <div className="w-12 h-12 rounded-lg bg-brand-blue/10 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                  <span className="text-2xl">💡</span>
+                </div>
+                <h3 className="font-bold text-text-primary mb-1">Problem Solving</h3>
+                <p className="text-xs text-text-secondary">Creative solutions</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </AnimatedSection>
+
+      <AnimatedSection className="section-padding bg-card-bg">
         <div className="container-width">
           <h2 className="text-section font-bold text-text-primary mb-12">
             Technical <span className="brand-text">Skills</span>
@@ -59,9 +129,9 @@ export default function AboutPage() {
             ))}
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
-      <section className="section-padding bg-card-bg">
+      <AnimatedSection className="hero-section bg-card-bg">
         <div className="container-width">
           <h2 className="text-section font-bold text-text-primary mb-12">
             Work <span className="brand-text">Experience</span>
@@ -86,13 +156,17 @@ export default function AboutPage() {
             <LearningCallout />
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
       <CompanyHighlight />
 
+      <AnimatedSection className="py-6 lg:py-8">
+        <div className="container-width" />
+      </AnimatedSection>
+
       <Achievements />
 
-      <section className="section-padding">
+      <AnimatedSection className="section-padding">
         <div className="container-width">
           <h2 className="text-section font-bold text-text-primary mb-12">
             <span className="brand-text">Education</span>
@@ -159,9 +233,9 @@ export default function AboutPage() {
             ))}
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
-      <section className="section-padding">
+      <AnimatedSection className="section-padding">
         <div className="container-width">
           <div className="flex flex-col items-center text-center gap-6 max-w-2xl mx-auto">
             <h2 className="text-section font-bold text-text-primary">
@@ -173,7 +247,7 @@ export default function AboutPage() {
             </Button>
           </div>
         </div>
-      </section>
+      </AnimatedSection>
     </>
   )
 }
