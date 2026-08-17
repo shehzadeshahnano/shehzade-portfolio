@@ -106,7 +106,7 @@ export default function Home() {
               </div>
 
               {/* Social Links - Z-INDEX FIXED */}
-              <div className="flex justify-center gap-3 mt-6 relative z-50">
+              <div className="flex justify-center gap-3 mt-0 relative z-50">
                 {socialLinks.map((social) => {
                   const IconComponent = social.icon;
                   return (
