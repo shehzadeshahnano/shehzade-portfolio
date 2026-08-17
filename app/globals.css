@@ -51,6 +51,13 @@
     scrollbar-gutter: stable;
   }
 
+  /* FIX: Disable scrollbar-gutter on mobile to prevent horizontal scroll */
+  @media (max-width: 640px) {
+    html {
+      scrollbar-gutter: auto;
+    }
+  }
+
   body {
     color: var(--text-primary);
     font-family: 'Inter', sans-serif;

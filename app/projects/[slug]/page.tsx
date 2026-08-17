@@ -10,6 +10,7 @@ import Badge from '@/components/shared/Badge'
 import Button from '@/components/shared/Button'
 import Card from '@/components/shared/Card'
 import { GithubIcon } from '@/components/shared/SocialIcons'
+import AnimatedSection from '@/components/shared/AnimationSection'
 
 interface ProjectDetailPageProps {
   params: Promise<{ slug: string }>
@@ -54,7 +55,7 @@ export default async function ProjectDetailPage({
 
   return (
     <>
-      <section className="pt-12 lg:pt-20 pb-6">
+      <section className="pt-6 lg:pt-20 pb-6">
         <div className="container-width">
           <Link
             href="/projects"
@@ -108,7 +109,7 @@ export default async function ProjectDetailPage({
         </div>
       </section>
 
-      <section className="section-padding bg-card-bg">
+      <AnimatedSection className="section-padding bg-card-bg">
         <div className="container-width">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="p-6 rounded-2xl bg-background border border-brand-border">
@@ -137,9 +138,9 @@ export default async function ProjectDetailPage({
             </div>
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
-      <section className="section-padding">
+      <AnimatedSection className="section-padding">
         <div className="container-width">
           <h2 className="text-section font-bold text-text-primary mb-8">
             Key <span className="gradient-text">Features</span>
@@ -160,9 +161,9 @@ export default async function ProjectDetailPage({
             ))}
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
-      <section className="section-padding bg-card-bg">
+      <AnimatedSection className="section-padding bg-card-bg">
         <div className="container-width">
           <h2 className="text-section font-bold text-text-primary mb-8">
             <span className="gradient-text">Technologies</span> Used
@@ -176,10 +177,10 @@ export default async function ProjectDetailPage({
             ))}
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
       {relatedProjects.length > 0 && (
-        <section className="section-padding">
+        <AnimatedSection className="section-padding">
           <div className="container-width">
             <h2 className="text-section font-bold text-text-primary mb-8">
               Related <span className="gradient-text">Projects</span>
@@ -208,10 +209,10 @@ export default async function ProjectDetailPage({
               ))}
             </div>
           </div>
-        </section>
+        </AnimatedSection>
       )}
 
-      <section className="section-padding bg-card-bg">
+      <AnimatedSection className="section-padding bg-card-bg">
         <div className="container-width">
           <div className="flex flex-col items-center text-center gap-6 max-w-2xl mx-auto">
             <h2 className="text-section font-bold text-text-primary">
@@ -225,7 +226,7 @@ export default async function ProjectDetailPage({
             </Button>
           </div>
         </div>
-      </section>
+      </AnimatedSection>
     </>
   )
 }
