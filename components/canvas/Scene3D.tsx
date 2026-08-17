@@ -15,9 +15,6 @@ export default function Scene3D() {
   return (
     <div 
       className="w-full h-full overflow-visible flex items-center justify-center"
-      style={{
-        transform: 'scale(0.75)',
-      }}
     >
       <Hero3D />
     </div>

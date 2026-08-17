@@ -43,7 +43,7 @@ export default function Home() {
   return (
     <>
       {/* HERO SECTION */}
-      <section className="section-padding pt-12 lg:pt-20">
+      <section className="hero-section pt-12 lg:pt-20">
         <div className="container-width overflow-visible">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 mb-12 overflow-visible">
 
