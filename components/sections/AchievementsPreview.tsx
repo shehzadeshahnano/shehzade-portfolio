@@ -30,11 +30,11 @@ export default function AchievementsPreview() {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: '-100px' }}
-      className="section-padding bg-card-bg"
+      className="section-padding bg-card-bg relative z-0"
     >
-      <div className="container-width">
+      <div className="container-width relative z-10">
         {/* Section Header */}
-        <motion.div variants={fadeUpVariant} className="flex items-center justify-between mb-12">
+        <motion.div variants={fadeUpVariant} className="flex items-center justify-between mb-12 relative z-10">
           <div className="flex items-center gap-3">
             <Award size={28} className="text-brand-blue" />
             <h2 className="text-3xl lg:text-4xl font-bold text-text-primary">
@@ -51,7 +51,7 @@ export default function AchievementsPreview() {
         </motion.div>
 
         {/* Compact Achievement Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-20">
           {achievements.map((achievement, index) => (
             <AchievementCard
               key={achievement.id}
@@ -63,7 +63,7 @@ export default function AchievementsPreview() {
         </div>
 
         {/* Mobile View All Link */}
-        <div className="mt-8 text-center sm:hidden">
+        <div className="mt-8 text-center sm:hidden relative z-10">
           <Link
             href="/about"
             className="inline-flex items-center gap-2 text-brand-blue font-semibold"

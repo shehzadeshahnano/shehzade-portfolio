@@ -45,7 +45,8 @@ export default function Button({
   type = 'button',
 }: ButtonProps) {
   const baseClasses = `inline-flex items-center justify-center gap-2 font-semibold rounded-xl 
-    transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer
+    transition-transform duration-300 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer
+    hover:scale-[1.02] active:scale-[0.98]
     ${sizes[size]} ${variants[variant]} ${fullWidth ? 'w-full' : ''} ${className}`
 
   const content = (
@@ -58,24 +59,20 @@ export default function Button({
 
   if (href) {
     return (
-      <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-        <Link href={href} className={baseClasses}>
-          {content}
-        </Link>
-      </motion.div>
+      <Link href={href} className={baseClasses}>
+        {content}
+      </Link>
     )
   }
 
   return (
-    <motion.button
-      whileHover={{ scale: disabled ? 1 : 1.02 }}
-      whileTap={{ scale: disabled ? 1 : 0.98 }}
+    <button
       type={type}
       onClick={onClick}
       disabled={disabled}
       className={baseClasses}
     >
       {content}
-    </motion.button>
+    </button>
   )
 }

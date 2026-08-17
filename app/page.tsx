@@ -48,7 +48,6 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 mb-12 overflow-visible">
 
             {/* Left: Intro */}
-            {/* Left: Intro */}
             <div className="flex flex-col gap-6 order-2 lg:order-1">
               <div className="flex flex-col gap-3">
                 <p className="text-sm font-semibold text-brand-blue tracking-wide uppercase">
@@ -276,7 +275,7 @@ export default function Home() {
       </section>
 
       {/* ACHIEVEMENTS SECTION */}
-      <AchievementsPreview />
+        <AchievementsPreview />
 
       {/* PROJECTS SECTION */}
       <section className="section-padding bg-card-bg">

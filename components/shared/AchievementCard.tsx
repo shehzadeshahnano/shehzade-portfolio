@@ -75,7 +75,6 @@ export default function AchievementCard({ achievement, index = 0, variant = 'def
     const Icon = getCategoryIcon(achievement.category)
     const colors = getCategoryColor(achievement.category)
 
-    // Compact variant for home page
     if (variant === 'compact') {
         return (
             <motion.div
@@ -83,21 +82,28 @@ export default function AchievementCard({ achievement, index = 0, variant = 'def
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: '-50px' }}
-                className="group"
+                className="group relative hover:z-20"
             >
                 <div
                     className={`
-            relative flex flex-col gap-4 p-5 rounded-xl 
-            bg-card-bg border ${colors.border}
-            hover:scale-[1.02] transition-all duration-300
-            shadow-md overflow-hidden h-full
-          `}
+              relative flex flex-col gap-4 p-5 rounded-xl 
+              bg-card-bg border ${colors.border}
+              hover:scale-[1.02] transition-all duration-300
+              shadow-md h-full
+            `}
                 >
-                    {/* Background decoration */}
-                    <div
-                        className={`absolute top-0 right-0 w-32 h-32 ${colors.bg} blur-2xl -translate-y-8 translate-x-8 group-hover:scale-150 transition-transform duration-700`}
-                    />
-
+                    {/* Background decoration - now in its own overflow-hidden wrapper */}
+                    <div className="absolute inset-0 rounded-xl overflow-hidden pointer-events-none">
+                        <div
+                            className={`absolute top-0 right-0 w-32 h-32 ${colors.bg} blur-2xl -translate-y-8 translate-x-8 group-hover:scale-150 transition-transform duration-700`}
+                        />
+                        {/* Bottom accent - moved here too since it needs overflow containment */}
+                        <div
+                            className={`absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent ${achievement.category === 'Technical Excellence' ? 'via-yellow-500/60' : 'via-brand-blue/60'
+                                } to-transparent`}
+                        />
+                    </div>
+    
                     {/* Content */}
                     <div className="relative z-10 flex flex-col gap-3">
                         {/* Icon + Badge */}
@@ -112,7 +118,7 @@ export default function AchievementCard({ achievement, index = 0, variant = 'def
                                 {achievement.year}
                             </span>
                         </div>
-
+    
                         {/* Title */}
                         <div>
                             <h3 className={`text-lg font-bold text-text-primary mb-1 group-hover:${colors.text} transition-colors`}>
@@ -122,12 +128,12 @@ export default function AchievementCard({ achievement, index = 0, variant = 'def
                                 {achievement.event}
                             </p>
                         </div>
-
+    
                         {/* Description - truncated */}
                         <p className="text-sm text-text-secondary line-clamp-2 leading-relaxed">
                             {achievement.description}
                         </p>
-
+    
                         {/* View Details Link */}
                         <Link
                             href={`/achievements/${achievement.slug}`}
@@ -137,17 +143,10 @@ export default function AchievementCard({ achievement, index = 0, variant = 'def
                             <ChevronRight size={14} />
                         </Link>
                     </div>
-
-                    {/* Bottom accent */}
-                    <div
-                        className={`absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent ${achievement.category === 'Technical Excellence' ? 'via-yellow-500/60' : 'via-brand-blue/60'
-                            } to-transparent`}
-                    />
                 </div>
             </motion.div>
         )
     }
-
     // Full variant for about page
     return (
         <motion.div
