@@ -43,13 +43,60 @@ export default function Home() {
   return (
     <>
       {/* HERO SECTION */}
-      <section className="hero-section pt-12 lg:pt-20">
+      <section className="section-padding pt-12 lg:pt-20">
         <div className="container-width overflow-visible">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 mb-12 overflow-visible">
 
             {/* Left: Intro */}
+            {/* Left: Intro */}
             <div className="flex flex-col gap-6 order-2 lg:order-1">
-              {/* ... all your content ... */}
+              <div className="flex flex-col gap-3">
+                <p className="text-sm font-semibold text-brand-blue tracking-wide uppercase">
+                  {PORTFOLIO.shortBio}
+                </p>
+                <h1 className="text-4xl lg:text-5xl xl:text-6xl font-black text-text-primary leading-tight">
+                  Hi, I&apos;m{' '}
+                  <span className="brand-text">{PORTFOLIO.name}</span>
+                </h1>
+                <p className="text-xl lg:text-2xl font-semibold text-text-secondary">
+                  {PORTFOLIO.title}
+                </p>
+              </div>
+
+              <p className="text-base lg:text-lg text-text-secondary leading-relaxed max-w-xl">
+                {PORTFOLIO.bio}
+              </p>
+
+              {/* Quick Info Row */}
+              <div className="flex flex-wrap gap-4 text-sm text-text-secondary">
+                <div className="flex items-center gap-2">
+                  <MapPin size={16} className="text-brand-blue" />
+                  <span>{PORTFOLIO.location}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Briefcase size={16} className="text-green-500" />
+                  <span>Currently Working</span>
+                </div>
+              </div>
+
+              {/* CTA Buttons */}
+              <div className="flex flex-col sm:flex-row gap-3 pt-2">
+                <Link
+                  href="/projects"
+                  className="flex-1 inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-brand-blue text-white font-semibold hover:opacity-90 transition-all duration-300 shadow-glow"
+                >
+                  View My Work
+                  <ArrowRight size={18} />
+                </Link>
+                <a
+                  href="/resume.pdf"
+                  download="Shehzade_Shahnano_Resume.pdf"
+                  className="flex-1 inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl border-2 border-brand-blue text-brand-blue font-semibold hover:bg-brand-blue hover:text-white transition-all duration-300"
+                >
+                  Download Resume
+                  <Download size={18} />
+                </a>
+              </div>
             </div>
 
             {/* Right: Image + Social Links */}

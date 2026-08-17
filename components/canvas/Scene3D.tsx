@@ -2,7 +2,6 @@
 
 import dynamic from 'next/dynamic'
 
-// Dynamic import with SSR disabled must be in a Client Component
 const Hero3D = dynamic(() => import('./Hero3D'), {
   ssr: false,
   loading: () => (
@@ -14,7 +13,12 @@ const Hero3D = dynamic(() => import('./Hero3D'), {
 
 export default function Scene3D() {
   return (
-    <div className="w-full h-full overflow-visible">
+    <div 
+      className="w-full h-full overflow-visible flex items-center justify-center"
+      style={{
+        transform: 'scale(0.75)',
+      }}
+    >
       <Hero3D />
     </div>
   )
