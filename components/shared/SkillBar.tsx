@@ -32,7 +32,13 @@ export default function SkillBar({
   const percentage = proficiency || levelPercentage[level]
 
   return (
-    <div className="flex flex-col gap-2">
+    <motion.div 
+      className="flex flex-col gap-2"
+      initial={{ opacity: 0, y: 10 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-30px', amount: 0.3 }}
+      transition={{ duration: 0.4 }}
+    >
       <div className="flex items-center justify-between gap-3">
         <span className="text-small font-semibold text-text-primary cursor-default">
           {name}
@@ -46,7 +52,7 @@ export default function SkillBar({
       </div>
 
       <div
-        className="w-full h-2 bg-brand-border rounded-full overflow-hidden"
+        className="w-full h-2 bg-brand-border rounded-full overflow-visible"
         role="progressbar"
         aria-valuenow={percentage}
         aria-valuemin={0}
@@ -56,11 +62,11 @@ export default function SkillBar({
         <motion.div
           initial={{ width: 0 }}
           whileInView={{ width: `${percentage}%` }}
-          transition={{ duration: 1, ease: 'easeOut' }}
-          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+          viewport={{ once: true, margin: '-30px' }}
           className={`h-full bg-gradient-to-r ${levelColor[level]} rounded-full`}
         />
       </div>
-    </div>
+    </motion.div>
   )
 }
