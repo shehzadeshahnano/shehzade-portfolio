@@ -291,3 +291,24 @@
     scrollbar-width: none;
   }
 }
+
+@layer utilities {
+  .hero-section {
+    padding-top: 0;
+    padding-bottom: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .hero-section {
+      padding-top: 3rem;
+      padding-bottom: 3rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .hero-section {
+      padding-top: 5rem;
+      padding-bottom: 5rem;
+    }
+  }
+}
