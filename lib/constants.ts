@@ -50,8 +50,8 @@ export const CURRENT_COMPANY = {
   workMode: 'On-site',
   website: 'https://guavatrees.com',
   address: {
-    street: 'Bhopal',
-    area: 'Madhya Pradesh',
+    street: '47, Sabri Villa, 2nd Floor',
+    area: 'Lala Lajpat Rai Colony',
     city: 'Bhopal',
     state: 'Madhya Pradesh',
     zipCode: '462001',
