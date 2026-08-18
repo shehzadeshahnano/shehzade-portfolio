@@ -42,6 +42,7 @@ export default function MobileMenu({
     <AnimatePresence>
       {isOpen && (
         <>
+          {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -51,6 +52,7 @@ export default function MobileMenu({
             aria-hidden="true"
           />
 
+          {/* Drawer */}
           <motion.div
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
@@ -59,24 +61,35 @@ export default function MobileMenu({
             role="dialog"
             aria-modal="true"
             aria-label="Mobile navigation"
+            /*
+              FIX 7: Use right-0 top-0 instead of relying on positioning context.
+              Also cap width so it never overflows viewport on very small screens.
+            */
             className="fixed top-0 right-0 z-50 h-full w-[min(320px,85vw)] bg-card-bg 
-              border-l border-border flex flex-col lg:hidden"
+              border-l border-border flex flex-col lg:hidden overflow-hidden"
           >
-            <div className="flex items-center justify-between p-6 border-b border-border">
-              <span className="text-xl font-black text-text-primary font-display">Menu</span>
+            {/* Header */}
+            <div className="flex items-center justify-between p-6 border-b border-border flex-shrink-0">
+              <span className="text-xl font-black text-text-primary font-display">
+                Menu
+              </span>
               <button
                 type="button"
                 onClick={onClose}
                 className="p-2 rounded-lg text-text-secondary hover:text-text-primary 
                   hover:bg-black/5 dark:hover:bg-white/10 transition-colors cursor-pointer
-                  focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue rounded-lg"
+                  focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue"
                 aria-label="Close menu"
               >
                 <X size={20} />
               </button>
             </div>
 
-            <nav className="flex flex-col p-6 gap-2 flex-1" aria-label="Mobile">
+            {/* Nav Links */}
+            <nav
+              className="flex flex-col p-6 gap-2 flex-1 overflow-y-auto"
+              aria-label="Mobile"
+            >
               {NAV_LINKS.map((link, index) => (
                 <motion.div
                   key={link.href}
@@ -87,9 +100,10 @@ export default function MobileMenu({
                   <Link
                     href={link.href}
                     onClick={onClose}
-                    className="flex items-center px-4 py-3 rounded-xl font-medium text-body
-                      text-text-secondary hover:text-text-primary hover:bg-black/5 dark:hover:bg-white/10
-                      transition-all duration-200 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue"
+                    className="flex items-center px-4 py-3 rounded-xl font-medium
+                      text-text-secondary hover:text-text-primary hover:bg-black/5 
+                      dark:hover:bg-white/10 transition-all duration-200 cursor-pointer 
+                      focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue"
                   >
                     {link.label}
                   </Link>
@@ -97,8 +111,8 @@ export default function MobileMenu({
               ))}
             </nav>
 
-            {/* Social Links - Added above theme toggle */}
-            <div className="px-6 pb-4">
+            {/* Social Links */}
+            <div className="px-6 pb-4 flex-shrink-0">
               <p className="text-xs text-text-muted mb-3 uppercase tracking-wider font-semibold">
                 Connect With Me
               </p>
@@ -122,7 +136,8 @@ export default function MobileMenu({
               </div>
             </div>
 
-            <div className="p-6 border-t border-border flex items-center gap-2">
+            {/* Theme Toggle */}
+            <div className="p-6 border-t border-border flex items-center gap-2 flex-shrink-0">
               <button
                 type="button"
                 onClick={toggleTheme}

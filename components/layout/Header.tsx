@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { Menu, Sun, Moon } from 'lucide-react'
@@ -13,6 +13,7 @@ export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const { theme, toggleTheme, mounted } = useTheme()
+  const scrollbarWidthRef = useRef(0)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,9 +24,19 @@ export default function Header() {
   }, [])
 
   useEffect(() => {
-    document.body.style.overflow = mobileOpen ? 'hidden' : ''
+    if (mobileOpen) {
+      const scrollbarWidth =
+        window.innerWidth - document.documentElement.clientWidth
+      scrollbarWidthRef.current = scrollbarWidth
+      document.body.style.overflow = 'hidden'
+      document.body.style.paddingRight = `${scrollbarWidth}px`
+    } else {
+      document.body.style.overflow = ''
+      document.body.style.paddingRight = ''
+    }
     return () => {
       document.body.style.overflow = ''
+      document.body.style.paddingRight = ''
     }
   }, [mobileOpen])
 
@@ -48,8 +59,45 @@ export default function Header() {
               ? 'bg-card-bg/95 backdrop-blur-xl border-b border-border shadow-lg'
               : 'bg-transparent border-b border-transparent'
           }`}
+        style={{
+          /*
+            FIX 3: THE REAL FIX.
+
+            The logs showed:
+              windowInnerWidth: 457  ← fluctuates with mobile browser chrome
+              documentClientWidth: 414  ← the real stable viewport width
+
+            Mobile browsers report different values for window.innerWidth
+            vs document.documentElement.clientWidth because:
+            - window.innerWidth includes the area behind dynamic toolbars
+              (address bar, bottom nav bar) that appear/disappear on scroll
+            - documentClientWidth is always the stable layout viewport
+
+            position: fixed elements use the LAYOUT viewport for positioning
+            but some browsers (Chrome Android) size them using the VISUAL
+            viewport (window.innerWidth) during toolbar transitions.
+
+            The solution: explicitly set width and maxWidth to
+            100dvw (dynamic viewport width) which is always the
+            STABLE visible area, never the larger window.innerWidth.
+
+            dvw = dynamic viewport width = same as documentClientWidth
+            This prevents the header from ever being wider than the screen.
+          */
+          width: '100dvw',
+          maxWidth: '100dvw',
+          left: 0,
+          right: 0,
+        }}
       >
-        <div className="container-width">
+        {/* 
+          Extra safety: overflow hidden on the inner container
+          so even if something inside tries to grow, it gets clipped
+        */}
+        <div
+          className="container-width"
+          style={{ maxWidth: '100dvw', overflow: 'hidden' }}
+        >
           <div className="flex items-center justify-between h-16 lg:h-20">
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
               <Logo size="md" />
@@ -70,11 +118,13 @@ export default function Header() {
                     href={link.href}
                     className="text-small font-medium text-text-secondary hover:text-text-primary 
                       transition-colors duration-200 cursor-pointer relative group inline-block py-1
-                      focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-lg px-2"
+                      focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue 
+                      focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-lg px-2"
                   >
                     {link.label}
                     <span
-                      className="absolute bottom-0 left-0 h-0.5 w-0 group-hover:w-full bg-brand-blue rounded-full transition-all duration-300"
+                      className="absolute bottom-0 left-0 h-0.5 w-0 group-hover:w-full 
+                        bg-brand-blue rounded-full transition-all duration-300"
                       aria-hidden="true"
                     />
                   </Link>
@@ -95,7 +145,9 @@ export default function Header() {
                 whileTap={{ scale: 0.95 }}
                 className="p-2.5 rounded-lg bg-card-bg border border-border 
                   hover:border-brand-blue/40 text-text-secondary hover:text-text-primary
-                  transition-all duration-200 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                  transition-all duration-200 cursor-pointer focus:outline-none 
+                  focus-visible:ring-2 focus-visible:ring-brand-blue 
+                  focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                 aria-label={
                   isDark ? 'Switch to light mode' : 'Switch to dark mode'
                 }
@@ -110,7 +162,9 @@ export default function Header() {
                 whileTap={{ scale: 0.95 }}
                 className="lg:hidden p-2.5 rounded-lg bg-card-bg border border-border 
                   hover:border-brand-blue/40 text-text-secondary hover:text-text-primary
-                  transition-all duration-200 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                  transition-all duration-200 cursor-pointer focus:outline-none 
+                  focus-visible:ring-2 focus-visible:ring-brand-blue 
+                  focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                 aria-label="Open menu"
                 aria-expanded={mobileOpen}
               >

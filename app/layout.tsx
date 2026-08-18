@@ -14,7 +14,7 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://shehzade-portfolio.vercel.app'),
+  metadataBase: new URL('https://shehzade.vercel.app'),
   title: 'Shehzade Shahnano | React Frontend Developer | Portfolio',
   description:
     'Professional portfolio of Shehzade Shahnano - React Frontend Developer specializing in scalable, responsive web applications.',
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_IN',
-    url: 'https://shehzade-portfolio.vercel.app',
+    url: 'https://shehzade.vercel.app',
     siteName: 'Shehzade Shahnano - Portfolio',
     title: 'Shehzade Shahnano | React Frontend Developer',
     description:
@@ -74,7 +74,7 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: 'https://shehzade-portfolio.vercel.app',
+    canonical: 'https://shehzade.vercel.app',
   },
   category: 'technology',
 }
@@ -91,7 +91,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
       <head>
         <ThemeScript />
       </head>
