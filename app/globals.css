@@ -51,7 +51,7 @@
     scrollbar-gutter: stable;
   }
 
-  /* FIX: Disable scrollbar-gutter on mobile to prevent horizontal scroll */
+  /* Disable scrollbar-gutter on mobile */
   @media (max-width: 640px) {
     html {
       scrollbar-gutter: auto;
@@ -67,19 +67,6 @@
     background: var(--background);
   }
 
-  html {
-    scroll-behavior: smooth;
-    overflow-x: hidden;
-    width: 100vw;
-    max-width: 100%;
-  }
-  
-  body {
-    width: 100%;
-    overflow-x: hidden;
-    max-width: 100%;
-  }
-  
   /* Constrain 3D transforms on mobile */
   @media (max-width: 768px) {
     .perspective-1000 {
@@ -91,13 +78,12 @@
     }
   }
 
-  /* FIX: Disable ALL focus outlines globally */
+  /* Disable focus outlines */
   *:focus {
     outline: none !important;
     box-shadow: none !important;
   }
 
-  /* FIX: Only show focus ring on interactive elements when using keyboard */
   button:focus-visible,
   a:focus-visible,
   [role="button"]:focus-visible,
@@ -109,7 +95,6 @@
     outline-offset: 2px !important;
   }
 
-  /* FIX: Ensure no focus ring on mouse click for any element */
   *:focus:not(:focus-visible) {
     outline: none !important;
     box-shadow: none !important;
@@ -147,7 +132,7 @@
     color: white;
   }
 
-  /* Cursor pointer enforcement */
+  /* Cursor enforcement */
   button,
   a,
   [role='button'],
@@ -165,7 +150,7 @@
     cursor: text;
   }
 
-  /* Light theme specific fixes */
+  /* Light theme */
   html.light body {
     background: var(--background);
   }
@@ -283,8 +268,6 @@
     margin-right: auto;
     padding-left: 1rem;
     padding-right: 1rem;
-    width: 100%;
-    overflow: visible;
   }
 
   @media (min-width: 640px) {
@@ -309,20 +292,12 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
-}
 
-@layer utilities {
   .hero-section {
     padding-top: 0;
     padding-bottom: 1rem;
   }
 
-  @media (max-width: 640px) {
-    html {
-      scrollbar-gutter: auto;
-    }
-  }
-  
   @media (min-width: 640px) {
     .hero-section {
       padding-top: 3rem;

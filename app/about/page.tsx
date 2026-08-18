@@ -1,6 +1,5 @@
 'use client'
 
-import { motion } from 'framer-motion'
 import { PORTFOLIO } from '@/lib/constants'
 import { skillsData } from '@/data/skills'
 import { experienceData } from '@/data/experience'
@@ -98,52 +97,34 @@ export default function AboutPage() {
           </div>
         </div>
       </AnimatedSection>
-
-      <AnimatedSection className="section-padding bg-card-bg">
+      <section className="section-padding bg-card-bg">
         <div className="container-width">
           <h2 className="text-section font-bold text-text-primary mb-12">
             Technical <span className="brand-text">Skills</span>
           </h2>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {skillsData.map((category, categoryIndex) => (
-              <motion.div
-                key={category.category}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-50px' }}
-                transition={{ delay: categoryIndex * 0.1, duration: 0.5 }}
-                className="flex flex-col gap-6"
-              >
+            {skillsData.map((category) => (
+              <div key={category.category} className="flex flex-col gap-6">
                 <h3 className="text-lg font-bold text-text-primary">
                   {category.category}
                 </h3>
                 <div className="flex flex-col gap-5">
-                  {category.skills.map((skill, skillIndex) => (
-                    <motion.div
+                  {category.skills.map((skill) => (
+                    <SkillBar
                       key={skill.name}
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true, margin: '-50px' }}
-                      transition={{
-                        delay: (categoryIndex * 0.1) + (skillIndex * 0.05),
-                        duration: 0.4
-                      }}
-                    >
-                      <SkillBar
-                        name={skill.name}
-                        level={skill.level}
-                        years={skill.years}
-                        proficiency={skill.proficiency}
-                      />
-                    </motion.div>
+                      name={skill.name}
+                      level={skill.level}
+                      years={skill.years}
+                      proficiency={skill.proficiency}
+                    />
                   ))}
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
-      </AnimatedSection>
+      </section>
 
       <AnimatedSection className="hero-section bg-card-bg">
         <div className="container-width">

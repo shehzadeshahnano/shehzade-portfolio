@@ -1,7 +1,5 @@
 'use client'
 
-import { motion } from 'framer-motion'
-
 interface SkillBarProps {
   name: string
   level: 'Beginner' | 'Intermediate' | 'Advanced' | 'Expert'
@@ -17,10 +15,10 @@ const levelPercentage = {
 }
 
 const levelColor = {
-  Beginner: 'from-yellow-500 to-orange-500',
-  Intermediate: 'from-blue-500 to-cyan-500',
-  Advanced: 'from-purple-500 to-blue-500',
-  Expert: 'from-green-500 to-emerald-500',
+  Beginner: 'bg-gradient-to-r from-yellow-500 to-orange-500',
+  Intermediate: 'bg-gradient-to-r from-blue-500 to-cyan-500',
+  Advanced: 'bg-gradient-to-r from-purple-500 to-blue-500',
+  Expert: 'bg-gradient-to-r from-green-500 to-emerald-500',
 }
 
 export default function SkillBar({
@@ -32,13 +30,7 @@ export default function SkillBar({
   const percentage = proficiency || levelPercentage[level]
 
   return (
-    <motion.div 
-      className="flex flex-col gap-2"
-      initial={{ opacity: 0, y: 10 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-30px', amount: 0.3 }}
-      transition={{ duration: 0.4 }}
-    >
+    <div className="flex flex-col gap-2">
       <div className="flex items-center justify-between gap-3">
         <span className="text-small font-semibold text-text-primary cursor-default">
           {name}
@@ -52,21 +44,18 @@ export default function SkillBar({
       </div>
 
       <div
-        className="w-full h-2 bg-brand-border rounded-full overflow-visible"
+        className="w-full h-2 bg-slate-700 dark:bg-slate-600 rounded-full overflow-hidden"
         role="progressbar"
         aria-valuenow={percentage}
         aria-valuemin={0}
         aria-valuemax={100}
         aria-label={`${name} proficiency`}
       >
-        <motion.div
-          initial={{ width: 0 }}
-          whileInView={{ width: `${percentage}%` }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
-          viewport={{ once: true, margin: '-30px' }}
-          className={`h-full bg-gradient-to-r ${levelColor[level]} rounded-full`}
+        <div
+          className={`h-full ${levelColor[level]} rounded-full transition-all duration-1000`}
+          style={{ width: `${percentage}%` }}
         />
       </div>
-    </motion.div>
+    </div>
   )
 }
