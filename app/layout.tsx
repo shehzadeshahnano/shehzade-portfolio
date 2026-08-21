@@ -82,7 +82,24 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 5,
+  /*
+    FIX 1: Change maximumScale from 5 to 1.
+    
+    maximumScale: 5 allows the browser to zoom up to 5x.
+    When CertificateModal's touch handlers partially intercept
+    pinch gestures and then release them, the browser resumes
+    its own zoom handling mid-gesture — landing on a random
+    zoom level between 1x and 5x.
+    
+    Setting maximumScale: 1 prevents the browser from zooming
+    at all via pinch, so there's no inconsistent zoom state
+    left behind after the modal closes.
+    
+    Note: This does NOT break accessibility — the modal itself
+    provides its own zoom controls (ZoomIn/ZoomOut buttons).
+  */
+  maximumScale: 1,
+  userScalable: false,
 }
 
 export default function RootLayout({

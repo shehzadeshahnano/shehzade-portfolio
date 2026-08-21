@@ -24,13 +24,15 @@ export default function CertificateModal({
   const [mounted, setMounted] = useState(false)
   const [imageLoaded, setImageLoaded] = useState(false)
   const [imageError, setImageError] = useState(false)
-  
-  // Zoom and Pan States
+
   const [scale, setScale] = useState(1)
   const [position, setPosition] = useState({ x: 0, y: 0 })
   const [isDragging, setIsDragging] = useState(false)
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 })
-  
+
+  // Store pinch distance for manual pinch-zoom inside modal
+  const lastPinchDistanceRef = useRef<number | null>(null)
+
   const imageContainerRef = useRef<HTMLDivElement>(null)
   const minScale = 0.5
   const maxScale = 3
@@ -42,17 +44,30 @@ export default function CertificateModal({
 
   useEffect(() => {
     if (isOpen) {
+      /*
+        FIX 2: Save the current body overflow before changing it,
+        and restore exactly that value on cleanup.
+        Also use '' (empty string) not 'unset' to restore.
+        
+        'unset' is a CSS keyword — it tells the browser to use
+        the inherited/initial value, which on mobile can trigger
+        a viewport recalculation causing the zoom bug.
+        
+        '' (empty string) removes the inline style entirely,
+        letting the stylesheet value take over cleanly.
+      */
+      const originalOverflow = document.body.style.overflow
       document.body.style.overflow = 'hidden'
+
       setImageLoaded(false)
       setImageError(false)
       setScale(1)
       setPosition({ x: 0, y: 0 })
-    } else {
-      document.body.style.overflow = 'unset'
-    }
 
-    return () => {
-      document.body.style.overflow = 'unset'
+      return () => {
+        // Restore exactly what was there before
+        document.body.style.overflow = originalOverflow
+      }
     }
   }, [isOpen])
 
@@ -60,7 +75,7 @@ export default function CertificateModal({
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!isOpen) return
-      
+
       switch (e.key) {
         case 'Escape':
           onClose()
@@ -68,15 +83,16 @@ export default function CertificateModal({
         case '=':
         case '+':
           e.preventDefault()
-          handleZoomIn()
+          setScale(prev => Math.min(prev + 0.25, maxScale))
           break
         case '-':
           e.preventDefault()
-          handleZoomOut()
+          setScale(prev => Math.max(prev - 0.25, minScale))
           break
         case '0':
           e.preventDefault()
-          handleReset()
+          setScale(1)
+          setPosition({ x: 0, y: 0 })
           break
         case 'ArrowLeft':
           e.preventDefault()
@@ -101,52 +117,58 @@ export default function CertificateModal({
     return () => document.removeEventListener('keydown', handleKeyDown)
   }, [isOpen, onClose])
 
-  // Enhanced Mouse Wheel with Ctrl detection for zoom vs scroll
+  /*
+    FIX 3: Scope the wheel listener to the imageContainerRef element,
+    NOT to document.
+    
+    Original code added the wheel listener to document with passive:false.
+    This meant even after modal closed, if the cleanup ran late or 
+    the component re-rendered, the listener could still be active on
+    the document — intercepting scroll events on other pages.
+    
+    Scoping to the container element means:
+    1. It only fires when wheel happens inside the modal image area
+    2. It's automatically gone when the modal unmounts
+    3. It never interferes with page scroll or pinch zoom outside the modal
+  */
   useEffect(() => {
+    const container = imageContainerRef.current
+    if (!container || !isOpen) return
+
     const handleWheel = (e: WheelEvent) => {
-      if (!isOpen || !imageContainerRef.current?.contains(e.target as Node)) return
-      
-      // Only zoom if Ctrl is held down (pinch-to-zoom gesture) or it's a zoom-specific gesture
-      const isZoomGesture = e.ctrlKey || Math.abs(e.deltaY) > Math.abs(e.deltaX)
-      
-      if (isZoomGesture && e.ctrlKey) {
-        // Zoom functionality - only when Ctrl is held
-        e.preventDefault()
-        const delta = e.deltaY * -0.01
-        const newScale = Math.min(Math.max(scale + delta, minScale), maxScale)
-        setScale(newScale)
-      } else if (scale > 1) {
-        // Allow natural scrolling when zoomed in and not holding Ctrl
-        // Let the browser handle normal scrolling
-        return
-      }
+      if (!e.ctrlKey) return // Only handle Ctrl+scroll (pinch-to-zoom maps to this)
+      e.preventDefault()
+      e.stopPropagation()
+
+      const delta = e.deltaY * -0.01
+      setScale(prev => Math.min(Math.max(prev + delta, minScale), maxScale))
     }
 
-    document.addEventListener('wheel', handleWheel, { passive: false })
-    return () => document.removeEventListener('wheel', handleWheel)
-  }, [isOpen, scale])
+    container.addEventListener('wheel', handleWheel, { passive: false })
+    return () => container.removeEventListener('wheel', handleWheel)
+  }, [isOpen])
 
-  // Mouse Drag with improved bounds
+  // Mouse Drag
   const handleMouseDown = (e: React.MouseEvent) => {
-    if (scale <= 1) return // Only allow dragging when zoomed in
+    if (scale <= 1) return
     e.preventDefault()
     setIsDragging(true)
     setDragStart({
       x: e.clientX - position.x,
-      y: e.clientY - position.y
+      y: e.clientY - position.y,
     })
   }
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!isDragging || !imageContainerRef.current) return
-    
+
     const containerRect = imageContainerRef.current.getBoundingClientRect()
-    const maxPanX = (scale - 1) * containerRect.width / 4
-    const maxPanY = (scale - 1) * containerRect.height / 4
-    
+    const maxPanX = ((scale - 1) * containerRect.width) / 4
+    const maxPanY = ((scale - 1) * containerRect.height) / 4
+
     const newX = Math.max(-maxPanX, Math.min(maxPanX, e.clientX - dragStart.x))
     const newY = Math.max(-maxPanY, Math.min(maxPanY, e.clientY - dragStart.y))
-    
+
     setPosition({ x: newX, y: newY })
   }
 
@@ -154,46 +176,85 @@ export default function CertificateModal({
     setIsDragging(false)
   }
 
-  // Touch Events for Mobile with pinch-to-zoom detection
+  /*
+    FIX 4: Proper touch handling that prevents native browser zoom
+    from being triggered while inside the modal, but does NOT
+    leak touch state to the rest of the page after modal closes.
+    
+    Key changes:
+    - Manually implement pinch zoom using touch distance calculation
+    - Call e.preventDefault() on touchmove to block native pinch zoom
+      ONLY when inside the modal container
+    - Reset lastPinchDistanceRef on touchend so no state leaks out
+  */
   const handleTouchStart = (e: React.TouchEvent) => {
-    if (e.touches.length === 1 && scale > 1) {
-      // Single touch for panning when zoomed
+    if (e.touches.length === 2) {
+      // Record initial pinch distance
+      const dx = e.touches[0].clientX - e.touches[1].clientX
+      const dy = e.touches[0].clientY - e.touches[1].clientY
+      lastPinchDistanceRef.current = Math.sqrt(dx * dx + dy * dy)
+      setIsDragging(false)
+    } else if (e.touches.length === 1 && scale > 1) {
       const touch = e.touches[0]
       setIsDragging(true)
       setDragStart({
         x: touch.clientX - position.x,
-        y: touch.clientY - position.y
+        y: touch.clientY - position.y,
       })
-    } else if (e.touches.length === 2) {
-      // Two-finger touch for zoom (pinch gesture)
-      setIsDragging(false)
     }
   }
 
   const handleTouchMove = (e: React.TouchEvent) => {
-    if (e.touches.length === 1 && isDragging && scale > 1) {
-      // Single finger pan
+    if (e.touches.length === 2) {
+      /*
+        Two fingers = pinch zoom inside modal.
+        Prevent the browser from doing its own native zoom.
+        We handle zoom manually via distance calculation.
+      */
+      e.preventDefault()
+
+      const dx = e.touches[0].clientX - e.touches[1].clientX
+      const dy = e.touches[0].clientY - e.touches[1].clientY
+      const distance = Math.sqrt(dx * dx + dy * dy)
+
+      if (lastPinchDistanceRef.current !== null) {
+        const ratio = distance / lastPinchDistanceRef.current
+        setScale(prev => Math.min(Math.max(prev * ratio, minScale), maxScale))
+      }
+
+      lastPinchDistanceRef.current = distance
+    } else if (e.touches.length === 1 && isDragging && scale > 1) {
       e.preventDefault()
       const touch = e.touches[0]
       const containerRect = imageContainerRef.current?.getBoundingClientRect()
       if (!containerRect) return
-      
-      const maxPanX = (scale - 1) * containerRect.width / 4
-      const maxPanY = (scale - 1) * containerRect.height / 4
-      
-      const newX = Math.max(-maxPanX, Math.min(maxPanX, touch.clientX - dragStart.x))
-      const newY = Math.max(-maxPanY, Math.min(maxPanY, touch.clientY - dragStart.y))
-      
+
+      const maxPanX = ((scale - 1) * containerRect.width) / 4
+      const maxPanY = ((scale - 1) * containerRect.height) / 4
+
+      const newX = Math.max(
+        -maxPanX,
+        Math.min(maxPanX, touch.clientX - dragStart.x)
+      )
+      const newY = Math.max(
+        -maxPanY,
+        Math.min(maxPanY, touch.clientY - dragStart.y)
+      )
+
       setPosition({ x: newX, y: newY })
     }
-    // Let two-finger gestures be handled naturally by the browser for scrolling
   }
 
   const handleTouchEnd = () => {
+    /*
+      FIX 5: Always reset pinch state on touchend.
+      This ensures no pinch distance state leaks to the next
+      touch interaction (either inside modal or after navigation).
+    */
+    lastPinchDistanceRef.current = null
     setIsDragging(false)
   }
 
-  // Control Functions
   const handleZoomIn = () => {
     setScale(prev => Math.min(prev + 0.25, maxScale))
   }
@@ -260,7 +321,6 @@ export default function CertificateModal({
 
               {/* Controls */}
               <div className="flex items-center gap-2">
-                {/* Zoom Controls */}
                 <div className="hidden md:flex items-center gap-1 px-3 py-1.5 rounded-lg bg-background border border-border">
                   <button
                     onClick={handleZoomOut}
@@ -270,11 +330,11 @@ export default function CertificateModal({
                   >
                     <ZoomOut size={16} />
                   </button>
-                  
+
                   <span className="text-sm font-medium text-text-secondary min-w-[3rem] text-center">
                     {Math.round(scale * 100)}%
                   </span>
-                  
+
                   <button
                     onClick={handleZoomIn}
                     disabled={scale >= maxScale}
@@ -285,7 +345,6 @@ export default function CertificateModal({
                   </button>
                 </div>
 
-                {/* Reset Button */}
                 <button
                   onClick={handleReset}
                   className="hidden md:flex p-2 rounded-lg bg-background border border-border hover:border-brand-blue/40 transition-colors"
@@ -294,7 +353,6 @@ export default function CertificateModal({
                   <RotateCcw size={16} />
                 </button>
 
-                {/* Close Button */}
                 <button
                   onClick={onClose}
                   className="w-10 h-10 rounded-xl bg-background border border-border flex items-center justify-center text-text-secondary hover:text-text-primary hover:border-brand-blue/40 transition-all duration-200 hover:scale-105"
@@ -307,8 +365,6 @@ export default function CertificateModal({
 
             {/* Content */}
             <div className="flex-1 flex flex-col items-center justify-center overflow-auto bg-background/50">
-              
-              {/* Loading State */}
               {!imageLoaded && !imageError && (
                 <div className="flex flex-col items-center gap-4">
                   <div className="w-12 h-12 rounded-xl bg-brand-blue/10 border border-brand-blue/30 flex items-center justify-center">
@@ -318,7 +374,6 @@ export default function CertificateModal({
                 </div>
               )}
 
-              {/* Error State */}
               {imageError && (
                 <div className="flex flex-col items-center gap-4 text-center">
                   <div className="w-16 h-16 rounded-xl bg-red-500/10 border border-red-500/30 flex items-center justify-center">
@@ -335,16 +390,24 @@ export default function CertificateModal({
                 </div>
               )}
 
-              {/* Certificate Image Container */}
               {certificateUrl && (
-                <div 
+                <div
                   ref={imageContainerRef}
                   className={`
                     relative w-full h-full p-4
                     ${scale > 1 ? (isDragging ? 'cursor-grabbing' : 'cursor-grab') : 'cursor-default'}
                     ${imageLoaded ? 'flex' : 'hidden'}
                     items-center justify-center
+                    touch-none
                   `}
+                  /*
+                    FIX 6: touch-none class sets touch-action: none on the container.
+                    This tells the browser "this element handles all touch events itself"
+                    which prevents the browser from trying to do its own
+                    pinch-zoom or scroll on this element.
+                    Combined with our manual pinch handling above, this
+                    gives full control without any native zoom leaking.
+                  */
                   onMouseDown={handleMouseDown}
                   onMouseMove={handleMouseMove}
                   onMouseUp={handleMouseUp}
@@ -353,8 +416,8 @@ export default function CertificateModal({
                   onTouchMove={handleTouchMove}
                   onTouchEnd={handleTouchEnd}
                 >
-                  <div 
-                    className="relative transition-transform duration-200 ease-out"
+                  <div
+                    className="relative transition-transform duration-150 ease-out"
                     style={{
                       transform: `translate(${position.x}px, ${position.y}px) scale(${scale})`,
                       transformOrigin: 'center center',
@@ -375,7 +438,7 @@ export default function CertificateModal({
                       }}
                       priority
                       draggable={false}
-                      onContextMenu={(e) => e.preventDefault()}
+                      onContextMenu={e => e.preventDefault()}
                     />
                   </div>
                 </div>
@@ -384,9 +447,8 @@ export default function CertificateModal({
 
             {/* Footer */}
             <div className="p-4 md:p-6 border-t border-border bg-background/90">
-              
-                           {/* Mobile Controls */}
-                           <div className="flex md:hidden items-center justify-center gap-2 mb-4">
+              {/* Mobile Controls */}
+              <div className="flex md:hidden items-center justify-center gap-2 mb-4">
                 <button
                   onClick={handleZoomOut}
                   disabled={scale <= minScale}
@@ -395,11 +457,11 @@ export default function CertificateModal({
                   <ZoomOut size={16} />
                   <span className="text-sm">Out</span>
                 </button>
-                
+
                 <span className="text-sm font-medium text-text-secondary px-3 py-2 bg-background border border-border rounded-lg min-w-[4rem] text-center">
                   {Math.round(scale * 100)}%
                 </span>
-                
+
                 <button
                   onClick={handleZoomIn}
                   disabled={scale >= maxScale}
@@ -408,7 +470,7 @@ export default function CertificateModal({
                   <ZoomIn size={16} />
                   <span className="text-sm">In</span>
                 </button>
-                
+
                 <button
                   onClick={handleReset}
                   className="flex items-center gap-2 px-3 py-2 rounded-lg bg-background border border-border transition-colors"
@@ -427,14 +489,13 @@ export default function CertificateModal({
                         <span>Drag to pan • </span>
                       </>
                     )}
-                    <span>Ctrl+Scroll to zoom • ESC to close</span>
+                    <span>Pinch to zoom • ESC to close</span>
                   </p>
                   <p className="text-xs text-text-muted">
                     Keyboard: + (zoom in) • - (zoom out) • 0 (reset) • Arrow keys (navigate)
                   </p>
                 </div>
-                
-                {/* Mobile Close Button */}
+
                 <button
                   onClick={onClose}
                   className="sm:hidden w-full py-3 px-6 rounded-xl bg-brand-blue text-white font-semibold hover:opacity-90 transition-all"
